@@ -1,0 +1,207 @@
+.navigation {
+  background: $black-color;
+  position: sticky;
+  z-index: 100;
+  box-shadow: $down-boxShadow;
+
+  &__div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__logo {
+    width: 130px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+  }
+}
+
+#navbar-navigation {
+  padding-bottom: 32px;
+}
+
+.navbar-navigation {
+  display: none;
+  &__links {
+    font-size: 17px;
+    font-weight: $normal;
+    letter-spacing: 1px;
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    padding-top: $global-spacing;
+    padding-bottom: $global-spacing/2;
+    font-family: $heading;
+  }
+  &__links:hover {
+    // opacity: 0.7;
+    color: $background-color;
+  }
+  &__links::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    position: relative;
+    margin: 0 auto;
+    margin-top: -3px;
+  }
+
+  &--btn {
+    background: $main-color;
+    font-weight: $normal;
+    font-size: 20px;
+    width: 120px;
+    margin: 0 auto;
+    border-radius: 10px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0px 8px 15px 1px $secondary-color;
+  }
+}
+
+.open {
+  display: block;
+}
+
+.customActive::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $secondary-color;
+  position: relative;
+  top: 10px;
+  margin: 0 auto;
+  margin-top: -3px;
+}
+
+/* Hamburger menu icon */
+.icon-container {
+  display: block;
+  cursor: pointer;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  -ms-transform: rotate(-45deg) translate(-9px, 6px);
+  -o-transform: rotate(-45deg) translate(-9px, 6px);
+  -moz-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {
+  opacity: 0;
+}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  -ms-transform: rotate(45deg) translate(-8px, -8px);
+  -o-transform: rotate(45deg) translate(-8px, -8px);
+  -moz-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+@media only screen and (min-width: $max-width) {
+  .icon-container {
+    display: none;
+  }
+  #navbar-navigation {
+    padding: 0;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .navWrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .navigation {
+    &__logo {
+      width: 130px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .navbar-navigation {
+    display: inline-block;
+    position: relative;
+    margin-left: 60px;
+    &__links {
+      font-size: 18px;
+      letter-spacing: 1px;
+      color: white;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-left: $global-spacing;
+      margin-right: $global-spacing;
+      display: inline-block;
+    }
+
+    &__links::after {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: transparent;
+      position: relative;
+      top: 10px;
+      margin: 0 auto;
+      margin-top: -3px;
+    }
+    &__links:hover::after {
+      width: 8px;
+      height: 8px;
+      background: $secondary-color;
+      transition: all 0.3s;
+      margin-top: -3px;
+    }
+    &__links:hover {
+      // opacity: 0.7;
+      color: $background-color;
+    }
+  }
+
+  .customActive::after {
+    width: 8px;
+    height: 8px;
+    background: $secondary-color;
+    margin: 0 auto;
+    margin-top: -3px;
+  }
+}
+
+// @media (max-width: 880px) and (min-width: $max-width) {
+//   .loggedIn {
+//     width: 85% !important;
+//     margin-left: 10px;
+//   }
+
+//   .loggedIn .navbar-navigation__links {
+//     font-weight: $bold;
+//     letter-spacing: 1px;
+//     text-decoration: none;
+//     padding-top: $global-spacing;
+//     padding-bottom: $global-spacing;
+//     margin-left: 8px;
+//     margin-right: 8px;
+//   }
+// }

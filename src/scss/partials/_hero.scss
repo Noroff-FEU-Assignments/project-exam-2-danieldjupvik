@@ -1,0 +1,54 @@
+.hero {
+  background-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.9542191876750701) 97%
+    ),
+    url(../../assets/images/hero-backdrop.jpg);
+  height: 88vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: $down-boxShadow;
+  display: flex;
+  // align-items: center;
+  // justify-content: space-between;
+  padding-top: 100px;
+  padding-bottom: 240px;
+
+  &__div {
+    display: flex;
+    max-width: 450px !important;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__heading {
+    text-align: center;
+    font-size: 28px;
+    color: $background-color;
+    font-family: $heading;
+    // margin-bottom: 65px;
+  }
+}
+
+.form-control {
+  padding-left: 45px !important;
+  border-radius: 10px !important;
+  padding-top: 32px !important;
+  padding-bottom: 32px !important;
+}
+.active {
+  background-color: $main-color !important;
+}
+
+.searchIcon {
+  margin-left: 6px;
+  position: absolute;
+  left: 0;
+}
+
+@media only screen and (min-width: $max-width) {
+  .hero {
+    height: 87vh;
+  }
+}

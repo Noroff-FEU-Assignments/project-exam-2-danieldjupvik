@@ -1,0 +1,91 @@
+.backIcon {
+  display: inline-block;
+  margin: 20px 0;
+}
+
+.details-cards {
+  display: flex;
+  flex-direction: column;
+  margin-top: $global-spacing * 2;
+  margin-bottom: $global-spacing * 2;
+}
+.details-image {
+  border-radius: 10px;
+}
+
+.details-title {
+  font-family: $heading;
+  font-weight: $bold;
+  font-size: 20px;
+}
+.details-wrapper {
+  margin-top: $global-spacing;
+  margin-bottom: $global-spacing;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.details-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 15px;
+}
+.details-rating {
+  margin-left: 5px;
+}
+.details-typeDiv {
+  margin-top: 5px;
+}
+.details-type {
+  opacity: 0.6;
+}
+.details-ratingDiv {
+  margin-top: $global-spacing;
+  display: flex;
+  align-items: center;
+}
+.details-number {
+  margin-left: 5px;
+}
+.details-orderDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 60px 0;
+  // margin-bottom: 80px;
+}
+.shareDiv:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.details-description {
+  font-size: 16px;
+  opacity: 0.7;
+}
+.details-price {
+  font-size: 21px;
+  font-weight: $semibold;
+}
+.details-price p {
+  margin: 0;
+}
+.orderBtn {
+  background: $main-color;
+  font-weight: $normal;
+  font-size: 20px;
+  width: fit-content;
+  margin: 0;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  // padding: ;
+  padding: 12px 30px;
+  border: none;
+  cursor: pointer;
+  font-family: $heading;
+}

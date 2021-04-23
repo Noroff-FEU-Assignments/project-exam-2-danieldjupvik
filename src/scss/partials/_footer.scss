@@ -1,0 +1,16 @@
+.footer {
+  background-color: $secondary-color;
+  padding: 20px;
+}
+.footerDiv {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.footer-image {
+  width: 120px;
+  margin-bottom: 20px;
+}
+.footer-copyright {
+  font-size: 13px;
+}

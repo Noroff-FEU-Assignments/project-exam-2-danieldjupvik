@@ -7,16 +7,13 @@ import { baseUrl } from '../utils/api';
 import axios from 'axios';
 
 import red from '@material-ui/core/colors/red';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
-import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
-import {
-  DatePicker,
-  DesktopDatePicker,
-  LocalizationProvider,
-  MobileDatePicker,
-} from '@material-ui/pickers';
-import TextField from '@material-ui/core/TextField';
+import DateFnsUtils from '@date-io/date-fns';
+
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
 const defaultMaterialTheme = createMuiTheme({
   palette: {
@@ -27,6 +24,7 @@ const defaultMaterialTheme = createMuiTheme({
 const OrderModal = (props) => {
   const [submitting, setSubmitting] = useState(false);
   const [orderError, setOrderError] = useState(null);
+  const [errorDate, setErrorDate] = useState(false);
 
   const [startDate, setStartDate] = useState(new Date());
   const today = new Date();
@@ -47,25 +45,32 @@ const OrderModal = (props) => {
   });
 
   const onSubmit = async (data) => {
-    setSubmitting(true);
     setOrderError(null);
-    try {
-      const response = await axios.post(`${baseUrl}/orders`, {
-        name: data.name,
-        guests: data.guests,
-        check_in: startDate,
-        check_out: endDate,
-        place_id: props.id,
-      });
-      console.log(response);
-      if (response.status) {
-        props.onHide();
+    if (startDate && endDate) {
+      setSubmitting(true);
+      console.log(data);
+      try {
+        const response = await axios.post(`${baseUrl}/orders`, {
+          name: data.name,
+          guests: data.guests,
+          check_in: startDate,
+          check_out: endDate,
+          place_id: props.id,
+          image_url: props.image_url,
+          place_name: props.name,
+        });
+        console.log(response);
+        if (response.status) {
+          props.onHide();
+        }
+      } catch (error) {
+        console.log(error);
+        setOrderError(error.toString());
+      } finally {
+        setSubmitting(false);
       }
-    } catch (error) {
-      console.log(error);
-      setOrderError(error.toString());
-    } finally {
-      setSubmitting(false);
+    } else {
+      setErrorDate(true);
     }
   };
 
@@ -124,39 +129,44 @@ const OrderModal = (props) => {
             </div>
 
             <div className='groupForm'>
-              <LocalizationProvider dateAdapter={DateFnsUtils}>
+              {errorDate ? <p>Both check in and out is required</p> : null}
+
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ThemeProvider theme={defaultMaterialTheme}>
-                  <DatePicker
+                  <KeyboardDatePicker
+                    id={'startDate'}
                     label='Check In'
+                    variant='inline'
                     inputVariant='outlined'
-                    inputFormat={'dd/MM/yyyy'}
+                    format={'dd/MM/yyyy'}
+                    placeholder='Select a start date'
                     value={startDate}
                     onChange={(date) => {
                       setStartDate(date);
                       setTomorrowDate(date);
                     }}
                     minDate={new Date()}
-                    showToolbar
-                    renderInput={(props) => <TextField {...props} />}
                   />
                 </ThemeProvider>
-              </LocalizationProvider>
+              </MuiPickersUtilsProvider>
             </div>
 
             <div className='groupForm'>
-              <LocalizationProvider dateAdapter={DateFnsUtils}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ThemeProvider theme={defaultMaterialTheme}>
-                  <MobileDatePicker
+                  <KeyboardDatePicker
+                    id={'endDate'}
                     label='Check Out'
                     inputVariant='outlined'
-                    inputFormat={'dd/MM/yyyy'}
+                    variant='inline'
+                    placeholder='Select a end date'
+                    format={'dd/MM/yyyy'}
                     value={endDate}
                     onChange={(date) => setEndDate(date)}
                     minDate={new Date()}
-                    renderInput={(props) => <TextField {...props} />}
                   />
                 </ThemeProvider>
-              </LocalizationProvider>
+              </MuiPickersUtilsProvider>
             </div>
             <button onClick={props.onHide} className='submitBtn'>
               Close

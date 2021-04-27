@@ -1,5 +1,5 @@
 import { MdFavorite } from 'react-icons/md';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const PopularCards = ({ places, type }) => {
   return (
@@ -14,7 +14,7 @@ const PopularCards = ({ places, type }) => {
           place.user_reviews.map((review) => (subRating += review.rating));
           const vote_average = subRating / place.user_reviews.length;
           return (
-            <NavLink to={`place/${place.id}`} key={place.id}>
+            <Link to={`place/${place.id}`} key={place.id}>
               <div className='popular-cards'>
                 <div>
                   <img
@@ -30,7 +30,7 @@ const PopularCards = ({ places, type }) => {
                   <div className='popular-ratingDiv'>
                     <MdFavorite fontSize={'28px'} className={'heartIcon'} />
                     <span className='popular-rating'>
-                      {Math.floor((vote_average * 100) / 10)}%
+                      {Math.floor((vote_average * 100) / 5)}%
                     </span>
                     <span className='popular-number'>
                       ({place.user_reviews.length})
@@ -38,7 +38,7 @@ const PopularCards = ({ places, type }) => {
                   </div>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           );
         })}
     </>

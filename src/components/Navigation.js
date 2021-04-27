@@ -1,16 +1,24 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logoWhite from '../assets/logo/Holidaze-logo-white.png';
+import AuthContext from '../context/AuthContext';
+
 const Navigation = () => {
   const [open, setOpen] = useState(false);
+  const [auth, setAuth] = useContext(AuthContext);
 
   const openHamburgerMenu = () => {
-    setOpen(!open);
+    var w = window.innerWidth;
+    if (w <= 768) setOpen(!open);
+  };
+
+  const logout = () => {
+    setAuth(null);
   };
 
   return (
     <nav>
-      <div className='navigation'>
+      <div className={open ? 'navigation open' : 'navigation'}>
         <div className='custom-container navWrapper'>
           <div className='navigation__div'>
             <Link to='/'>
@@ -60,22 +68,33 @@ const Navigation = () => {
             >
               Contact
             </NavLink>
-            <NavLink
-              activeClassName='customActive'
-              onClick={openHamburgerMenu}
-              className='navbar-navigation__links'
-              to='/dashboard'
-            >
-              Admin
-            </NavLink>
-            <div className='nav-buttons'>
-              <Link
+            {auth ? (
+              <NavLink
+                activeClassName='customActive'
                 onClick={openHamburgerMenu}
-                to='/login'
-                className='login__btn button'
+                className='navbar-navigation__links'
+                to='/dashboard'
               >
-                Sign In
-              </Link>
+                Admin
+              </NavLink>
+            ) : null}
+            <div className='nav-buttons'>
+              {auth ? (
+                <div
+                  onClick={(openHamburgerMenu, logout)}
+                  className='login__btn button'
+                >
+                  Log Out
+                </div>
+              ) : (
+                <Link
+                  onClick={openHamburgerMenu}
+                  to='/login'
+                  className='login__btn button'
+                >
+                  Sign In
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -17,11 +17,6 @@
   font-family: $heading;
 }
 
-.button:hover {
-  filter: brightness(80%);
-  color: white;
-}
-
 .login__btn {
   width: 100%;
   font-size: 20px;
@@ -30,6 +25,19 @@
   margin-bottom: $global-spacing;
   background-color: transparent;
   border: 1px solid $secondary-color;
+}
+
+.hollow__btn {
+  // width: 100%;
+  font-size: 20px;
+  font-weight: $semibold;
+  margin-top: $global-spacing;
+  margin-bottom: $global-spacing;
+  margin: 0;
+  background-color: transparent;
+  color: $black-color;
+  padding: $global-spacing/3 20px;
+  border: 2px solid $main-color;
 }
 
 @media only screen and (min-width: $max-width) {
@@ -48,7 +56,15 @@
     padding-top: 12px;
     padding-bottom: 12px;
   }
-
+  .button:hover {
+    filter: brightness(80%);
+    color: white;
+  }
+  .hollow__btn:hover {
+    filter: none;
+    background-color: $main-color;
+    color: $background-color !important;
+  }
   .login__btn:hover {
     filter: none;
     background-color: $secondary-color;

@@ -6,10 +6,12 @@ import axios from 'axios';
 import { baseUrl, placesUrl } from '../utils/api';
 import { Link, useHistory } from 'react-router-dom';
 import PopularCards from '../components/PopularCards';
+import LoaderComp from '../components/LoaderComp';
 
 const Home = () => {
   const [places, setPlaces] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     // setLoader(true);
@@ -20,6 +22,7 @@ const Home = () => {
       } catch (e) {
         console.log(e);
       } finally {
+        setShowLoader(false);
       }
     };
     getPlaces();
@@ -80,24 +83,30 @@ const Home = () => {
       <div className='custom-container'>
         <div className='most-popular'>
           <h2 className='heading'>Our most popular places</h2>
-          <div className='category'>
-            <h3 className='subheading'>Cabins</h3>
-            <div className='cabin'>
-              <PopularCards places={places} type={'cabin'} />
+          {showLoader ? (
+            <LoaderComp />
+          ) : (
+            <div>
+              <div className='category'>
+                <h3 className='subheading'>Cabins</h3>
+                <div className='cabin'>
+                  <PopularCards places={places} type={'cabin'} />
+                </div>
+              </div>
+              <div className='category'>
+                <h3 className='subheading'>Apartments</h3>
+                <div className='apartment'>
+                  <PopularCards places={places} type={'apartment'} />
+                </div>
+              </div>
+              <div className='category'>
+                <h3 className='subheading'>Hotels</h3>
+                <div className='hotel'>
+                  <PopularCards places={places} type={'hotel'} />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className='category'>
-            <h3 className='subheading'>Apartments</h3>
-            <div className='apartment'>
-              <PopularCards places={places} type={'apartment'} />
-            </div>
-          </div>
-          <div className='category'>
-            <h3 className='subheading'>Hotels</h3>
-            <div className='hotel'>
-              <PopularCards places={places} type={'hotel'} />
-            </div>
-          </div>
+          )}
         </div>
         <div>
           <Link to='/places' className='button'>

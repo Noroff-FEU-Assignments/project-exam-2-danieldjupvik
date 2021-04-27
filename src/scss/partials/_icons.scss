@@ -1,0 +1,14 @@
+.redIcon {
+  fill: $main-color;
+}
+.deleteIcon {
+  fill: $main-color;
+  display: block;
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  cursor: pointer;
+}
+.deleteIcon:hover {
+  filter: brightness(70%);
+}

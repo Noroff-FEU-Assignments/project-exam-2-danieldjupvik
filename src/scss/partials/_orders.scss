@@ -1,0 +1,56 @@
+.backIconAbsolute {
+  display: inline-block;
+  position: absolute;
+  // margin: 20px 0;
+  cursor: pointer;
+}
+.order-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-shadow: $cards-boxShadow;
+  border-radius: 10px;
+  margin: $global-spacing * 3 0px;
+  align-items: center;
+  max-width: 500px;
+  height: auto;
+}
+.order-imageDiv {
+  height: 100%;
+  width: 100%;
+}
+.order-image {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  max-width: 100%;
+  height: auto;
+}
+.order-info {
+  margin: 14px;
+  display: flex;
+  width: 100%;
+  // width: 150%;
+  // flex-wrap: wrap;
+  flex-direction: column;
+  position: relative;
+}
+.order-title {
+  font-size: 18px;
+  display: block;
+  font-weight: $subheading;
+  font-family: $heading;
+  margin-bottom: 12px;
+}
+.order-name {
+}
+.order-guests {
+}
+.order-created {
+  margin-bottom: 15px;
+}
+.order-dateDiv {
+  display: flex;
+  flex-direction: column;
+}
+.order-date {
+}

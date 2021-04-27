@@ -3,6 +3,9 @@
   position: sticky;
   z-index: 100;
   box-shadow: $down-boxShadow;
+  height: 90px;
+  transition: 0.5s;
+  overflow: hidden;
 
   &__div {
     display: flex;
@@ -21,7 +24,7 @@
 }
 
 .navbar-navigation {
-  display: none;
+  display: block;
   &__links {
     font-size: 17px;
     font-weight: $normal;
@@ -65,6 +68,8 @@
 
 .open {
   display: block;
+  transition: 0.5s;
+  height: 100vh !important;
 }
 
 .customActive::after {
@@ -132,6 +137,7 @@
   }
 
   .navigation {
+    height: unset !important;
     &__logo {
       width: 130px;
       margin-top: 20px;
@@ -178,6 +184,10 @@
       // opacity: 0.7;
       color: $background-color;
     }
+  }
+
+  .open {
+    height: unset !important;
   }
 
   .customActive::after {

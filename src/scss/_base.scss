@@ -17,6 +17,10 @@ a {
   text-decoration: none !important;
 }
 
+a:hover {
+  color: inherit;
+}
+
 body {
   background-color: $background-color;
   margin: 0;

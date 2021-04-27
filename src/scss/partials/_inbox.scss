@@ -1,0 +1,47 @@
+.inbox-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-shadow: $cards-boxShadow;
+  border-radius: 10px;
+  margin: $global-spacing * 3 0px;
+  align-items: center;
+  max-width: 500px;
+  height: auto;
+  min-height: 200px;
+
+  padding: 20px;
+}
+
+.inbox-info {
+  display: flex;
+  width: 100%;
+  // width: 150%;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  position: relative;
+  align-self: flex-start;
+}
+
+.inbox-name {
+  font-size: 16px;
+  display: block;
+  font-weight: $subheading;
+  font-family: $heading;
+  margin-bottom: 12px;
+}
+.inbox-messageDiv {
+  width: 100%;
+  max-height: 150px;
+  overflow: scroll;
+}
+.inbox-message {
+  margin: 0;
+}
+.inbox-created {
+  margin-bottom: 15px;
+}
+.inbox-dateDiv {
+  display: flex;
+  flex-direction: column;
+}

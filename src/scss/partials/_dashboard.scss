@@ -1,0 +1,31 @@
+.dashboard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: $global-spacing 0;
+}
+
+.dashboard-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: $global-spacing 0;
+}
+.dashboard-title {
+  font-size: 22px;
+  font-family: $heading;
+  font-weight: $bold;
+  margin: $global-spacing 0;
+}
+@media only screen and (min-width: $max-width) {
+  .dashboard {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+  .dashboard-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

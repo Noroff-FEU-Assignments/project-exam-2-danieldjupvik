@@ -40,7 +40,7 @@ const OrderModal = (props) => {
     setEndDate(tomorrow.setDate(tomorrow.getDate() + 1));
   };
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(orderSchema),
   });
 
@@ -105,11 +105,11 @@ const OrderModal = (props) => {
           )}
           <fieldset disabled={submitting} className='fieldset'>
             <div className='groupForm'>
-              <p className='label'>Name</p>
+              <p className='label'>Full name</p>
               <input
                 type='text'
                 name='name'
-                placeholder='Name'
+                placeholder='Full name'
                 ref={register}
                 className='inputElem'
               />
@@ -135,6 +135,7 @@ const OrderModal = (props) => {
                 <ThemeProvider theme={defaultMaterialTheme}>
                   <KeyboardDatePicker
                     id={'startDate'}
+                    autoOk
                     label='Check In'
                     variant='inline'
                     inputVariant='outlined'
@@ -156,14 +157,15 @@ const OrderModal = (props) => {
                 <ThemeProvider theme={defaultMaterialTheme}>
                   <KeyboardDatePicker
                     id={'endDate'}
+                    autoOk
                     label='Check Out'
                     inputVariant='outlined'
                     variant='inline'
                     placeholder='Select a end date'
                     format={'dd/MM/yyyy'}
                     value={endDate}
+                    minDate={startDate}
                     onChange={(date) => setEndDate(date)}
-                    minDate={new Date()}
                   />
                 </ThemeProvider>
               </MuiPickersUtilsProvider>

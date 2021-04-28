@@ -21,7 +21,10 @@ const Login = () => {
     setSubmitting(true);
     setLoginError(null);
     try {
-      const response = await axios.post(`${baseUrl}${authUrl}`, data);
+      const response = await axios.post(`${baseUrl}${authUrl}`, {
+        identifier: data.identifier.toLowerCase(),
+        password: data.password,
+      });
       setAuth(response.data);
       console.log(response.data);
     } catch (error) {
@@ -60,11 +63,11 @@ const Login = () => {
         )}
         <fieldset disabled={submitting} className='fieldset'>
           <div className='groupForm'>
-            <p className='label'>Username</p>
+            <p className='label'>Username or Email</p>
             <input
               type='text'
               name='identifier'
-              placeholder='Username'
+              placeholder='Username or email'
               ref={register}
               className='inputElem'
             />

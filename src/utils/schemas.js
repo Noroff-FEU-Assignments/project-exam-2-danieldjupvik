@@ -29,3 +29,11 @@ export const reviewSchema = yup.object().shape({
   name: yup.string().required('Please enter your name'),
   description: yup.string().required('Please enter a description'),
 });
+
+export const createPlaceSchema = yup.object().shape({
+  name: yup.string().required('Please enter a name'),
+  image_url: yup.string().required('Please enter a URL'),
+  type: yup.string().required('Please choose a type'),
+  price: yup.string().required('Please choose a price'),
+  description: yup.string().required('Please enter a description'),
+});

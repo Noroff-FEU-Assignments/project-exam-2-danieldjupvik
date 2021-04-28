@@ -9,7 +9,7 @@ const Contact = () => {
   const [submitting, setSubmitting] = useState(false);
   const [contactError, setContactError] = useState(null);
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(contactSchema),
   });
   const onSubmit = async (data) => {
@@ -24,6 +24,7 @@ const Contact = () => {
       setContactError(error.toString());
     } finally {
       setSubmitting(false);
+      reset();
     }
   };
 
@@ -48,10 +49,13 @@ const Contact = () => {
         )}
         <fieldset disabled={submitting} className='fieldset'>
           <div className='groupForm'>
-            <p className='label'>Full Name</p>
+            <label htmlFor='name' className='label'>
+              Full Name
+            </label>
             <input
               type='text'
               name='name'
+              id='name'
               placeholder='Full name'
               ref={register}
               className='inputElem'
@@ -60,10 +64,13 @@ const Contact = () => {
           </div>
 
           <div className='groupForm'>
-            <p className='label'>Email</p>
+            <label htmlFor='email' className='label'>
+              Email
+            </label>
             <input
               type='text'
               name='email'
+              id='email'
               placeholder='example@example.com'
               ref={register}
               className='inputElem'
@@ -71,10 +78,13 @@ const Contact = () => {
             {errors.email && <p>{errors.email.message}</p>}
           </div>
           <div className='groupForm'>
-            <p className='label'>Message</p>
+            <label htmlFor='message' className='label'>
+              Message
+            </label>
             <textarea
               rows='5'
               name='message'
+              id='message'
               placeholder='Your message here'
               ref={register}
               className='inputElem'

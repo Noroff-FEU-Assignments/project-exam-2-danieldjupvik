@@ -37,7 +37,7 @@ const PlacesCards = ({ places }) => {
                   <div className='places-ratingDiv'>
                     <MdFavorite fontSize={'18px'} className={'redIcon'} />
                     <span className='places-rating'>
-                      {Math.floor((vote_average * 100) / 5)}%
+                      {vote_average ? Math.floor((vote_average * 100) / 5) : 0}%
                     </span>
                     <span className='places-number'>
                       ({place.user_reviews.length})

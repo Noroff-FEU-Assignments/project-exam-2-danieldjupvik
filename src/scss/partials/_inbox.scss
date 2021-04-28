@@ -7,10 +7,9 @@
   margin: $global-spacing * 3 0px;
   align-items: center;
   max-width: 500px;
-  height: auto;
-  min-height: 200px;
-
+  height: 300px;
   padding: 20px;
+  // overflow: hidden;
 }
 
 .inbox-info {
@@ -32,7 +31,7 @@
 }
 .inbox-messageDiv {
   width: 100%;
-  max-height: 150px;
+  max-height: 145px;
   overflow: scroll;
 }
 .inbox-message {

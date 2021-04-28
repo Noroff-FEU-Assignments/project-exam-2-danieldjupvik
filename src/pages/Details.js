@@ -184,7 +184,7 @@ const Place = () => {
                   <div className='details-ratingDiv'>
                     <MdFavorite fontSize={'26px'} className={'redIcon'} />
                     <span className='details-rating'>
-                      {Math.floor((vote_average * 100) / 5)}%
+                      {vote_average ? Math.floor((vote_average * 100) / 5) : 0}%
                     </span>
                     <span className='details-number'>
                       ({details.user_reviews?.length})
@@ -292,24 +292,40 @@ const Place = () => {
                     style={{ display: 'flex', flexDirection: 'column' }}
                   >
                     <fieldset>
-                      <label>Name</label>
-                      <input name='name' ref={register} type='text' />
-                      {errors.name && <p>{errors.name.message}</p>}
-                      <label>Rating</label>
-                      <StarRatings
-                        rating={rating}
-                        starRatedColor='red'
-                        numberOfStars={5}
-                        name='rating'
-                        changeRating={setRating}
-                        starDimension='20px'
-                        starSpacing='5px'
-                      />
-                      <label>Description</label>
-                      <textarea name='description' ref={register} />
-                      {errors.description && (
-                        <p>{errors.description.message}</p>
-                      )}
+                      <div className='groupForm'>
+                        <label className='label'>Name</label>
+                        <input
+                          name='name'
+                          ref={register}
+                          type='text'
+                          className='inputElem'
+                        />
+
+                        {errors.name && <p>{errors.name.message}</p>}
+                      </div>
+                      <div className='groupForm'>
+                        <label className='label'>Rating</label>
+                        <StarRatings
+                          rating={rating}
+                          starRatedColor='red'
+                          numberOfStars={5}
+                          name='rating'
+                          changeRating={setRating}
+                          starDimension='20px'
+                          starSpacing='5px'
+                        />
+                      </div>
+                      <div className='groupForm'>
+                        <label className='label'>Description</label>
+                        <textarea
+                          name='description'
+                          ref={register}
+                          className='inputElem'
+                        />
+                        {errors.description && (
+                          <p>{errors.description.message}</p>
+                        )}
+                      </div>
                       <button type='submit' className='button'>
                         Publish review
                       </button>

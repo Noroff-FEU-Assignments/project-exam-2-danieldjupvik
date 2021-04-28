@@ -94,10 +94,10 @@ const Orders = () => {
         <>
           <div>
             {orders
-              .slice(0, showMore ? 4 : 100000000)
               .sort(function (a, b) {
                 return b.id - a.id;
               })
+              .slice(0, showMore ? 4 : 100000000)
               .map((order) => {
                 const formatDate = (date) => {
                   var d = new Date(date);

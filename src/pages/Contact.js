@@ -60,7 +60,7 @@ const Contact = () => {
               ref={register}
               className='inputElem'
             />
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.name && <p className='errorLabel'>{errors.name.message}</p>}
           </div>
 
           <div className='groupForm'>
@@ -75,7 +75,9 @@ const Contact = () => {
               ref={register}
               className='inputElem'
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && (
+              <p className='errorLabel'>{errors.email.message}</p>
+            )}
           </div>
           <div className='groupForm'>
             <label htmlFor='message' className='label'>
@@ -89,9 +91,11 @@ const Contact = () => {
               ref={register}
               className='inputElem'
             />
-            {errors.message && <p>{errors.message.message}</p>}
+            {errors.message && (
+              <p className='errorLabel'>{errors.message.message}</p>
+            )}
           </div>
-          <button type='submit' className='submitBtn'>
+          <button type='submit' className='button contact__btn'>
             {submitting ? 'Sending...' : 'Send'}
           </button>
         </fieldset>

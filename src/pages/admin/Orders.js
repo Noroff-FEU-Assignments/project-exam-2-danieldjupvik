@@ -7,6 +7,7 @@ import useAxios from '../../utils/useAxios';
 import { useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
 import LoaderComp from '../../components/LoaderComp';
+import { formatDate } from '../../utils/library';
 
 export const monthNames = [
   'Jan',
@@ -92,23 +93,13 @@ const Orders = () => {
         <LoaderComp />
       ) : (
         <>
-          <div>
+          <div className='order-div'>
             {orders
               .sort(function (a, b) {
                 return b.id - a.id;
               })
               .slice(0, showMore ? 4 : 100000000)
               .map((order) => {
-                const formatDate = (date) => {
-                  var d = new Date(date);
-
-                  var year = d.getFullYear();
-                  var month = monthNames[d.getMonth()];
-                  var day = d.getDate();
-                  var created = `${day}. ${month} ${year}`;
-                  return created;
-                };
-
                 return (
                   <div key={order.id} className='order-cards'>
                     <div className='order-imageDiv'>
@@ -148,7 +139,10 @@ const Orders = () => {
               })}
           </div>
           {orders.length > 4 ? (
-            <div className='button' onClick={() => setShowMore(!showMore)}>
+            <div
+              className='button hollow__btn viewMore__btn adminViewMore__btn'
+              onClick={() => setShowMore(!showMore)}
+            >
               {showMore ? `Show more (${orders.length - 4})` : 'Show less'}
             </div>
           ) : null}

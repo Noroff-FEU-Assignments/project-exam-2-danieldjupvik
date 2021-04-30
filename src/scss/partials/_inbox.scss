@@ -4,12 +4,23 @@
   flex-wrap: wrap;
   box-shadow: $cards-boxShadow;
   border-radius: 10px;
-  margin: $global-spacing * 3 0px;
+  margin: $global-spacing * 2 0px;
   align-items: center;
   max-width: 500px;
   height: 300px;
   padding: 20px;
+  width: 100%;
+  position: relative;
+
   // overflow: hidden;
+}
+
+.inbox-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .inbox-info {
@@ -18,7 +29,6 @@
   // width: 150%;
   flex-wrap: nowrap;
   flex-direction: column;
-  position: relative;
   align-self: flex-start;
 }
 
@@ -43,4 +53,24 @@
 .inbox-dateDiv {
   display: flex;
   flex-direction: column;
+}
+
+@media only screen and (min-width: $max-width) {
+  .inbox-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: $global-spacing * 2;
+    margin-bottom: $global-spacing * 2;
+    width: 100%;
+  }
+
+  .inbox-cards {
+    transition: 0.4s;
+    margin: 20px 0px 20px 20px;
+
+    width: 100%;
+    max-width: 450px;
+  }
 }

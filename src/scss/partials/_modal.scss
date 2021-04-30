@@ -1,3 +1,16 @@
+.modal-content {
+  border-radius: 10px !important;
+}
+.MuiOutlinedInput-notchedOutline {
+  border: 1px solid $border-color !important;
+  box-shadow: $input-boxShadow;
+}
+.MuiOutlinedInput-root {
+  border-radius: 10px !important;
+}
+.MuiFormControl-root {
+  width: 100% !important;
+}
 .fieldset {
   border: none;
   margin: 0;
@@ -10,18 +23,34 @@
 }
 .inputElem {
   width: 100%;
-  padding: 10px;
+  padding: 14px;
   font-size: 13px;
   font-family: $text;
+  border: none;
+  border: 1px solid $border-color;
+  box-shadow: $input-boxShadow;
+  border-radius: 10px;
+}
+
+.inputElem:focus {
+  outline: none !important;
+  border: 1px solid $main-color;
+  // box-shadow: 0 0 10px $main-color;
 }
 .label {
   font-family: $text;
   font-size: 15px;
+  // display: block;
 }
 
 .errorLabel {
-  font-size: 13px;
-  color: lightgrey;
+  font-size: 14px;
+  color: $black-color;
+  border-bottom: 1px solid $main-color;
+  padding-bottom: 5px;
+  width: fit-content;
+  margin: 0;
+  margin-top: 10px;
 }
 .submitBtn {
   background: darkred;
@@ -42,4 +71,24 @@
 }
 .submitBtn:hover {
   opacity: 0.8;
+}
+
+.modalBtnDiv {
+  display: flex;
+  flex-direction: row;
+  // margin: $global-spacing * 2 0;
+  align-self: center;
+}
+
+.closeBtn {
+  font-size: 16px;
+  padding: 12px 20px;
+  margin: 0;
+  background: $black-color;
+  margin-right: $global-spacing;
+}
+.sendOrderBtn {
+  padding: 12px 20px;
+  font-size: 16px;
+  margin: 0;
 }

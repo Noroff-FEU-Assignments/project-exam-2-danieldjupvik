@@ -1,5 +1,5 @@
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { MdSearch } from 'react-icons/md';
 import axios from 'axios';
@@ -12,6 +12,7 @@ const Home = () => {
   const [places, setPlaces] = useState([]);
   const [selected, setSelected] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
+  const myRef = useRef(null);
 
   useEffect(() => {
     // setLoader(true);
@@ -30,8 +31,10 @@ const Home = () => {
 
   const history = useHistory();
   function navigate(id) {
-    history.push(`/place/${id}`);
+    history.push(`places/place/${id}`);
   }
+
+  const executeScroll = () => myRef.current.scrollIntoView();
 
   return (
     <div>
@@ -78,30 +81,38 @@ const Home = () => {
               </div>
             </Typeahead>
           </div>
+          <div className='button hero__btn' onClick={executeScroll}>
+            Most popular
+          </div>
         </div>
       </div>
       <div className='custom-container'>
-        <div className='most-popular'>
-          <h2 className='heading'>Our most popular places</h2>
+        <div className='most-popular' ref={myRef}>
+          <h2
+            className='heading'
+            style={{ paddingTop: '48px', marginTop: '0' }}
+          >
+            Our most popular places
+          </h2>
           {showLoader ? (
             <LoaderComp />
           ) : (
-            <div>
+            <div className='most-popularDiv'>
               <div className='category'>
                 <h3 className='subheading'>Cabins</h3>
-                <div className='cabin'>
+                <div className='cards-div'>
                   <PopularCards places={places} type={'cabin'} />
                 </div>
               </div>
               <div className='category'>
                 <h3 className='subheading'>Apartments</h3>
-                <div className='apartment'>
+                <div className='cards-div'>
                   <PopularCards places={places} type={'apartment'} />
                 </div>
               </div>
               <div className='category'>
                 <h3 className='subheading'>Hotels</h3>
-                <div className='hotel'>
+                <div className='cards-div'>
                   <PopularCards places={places} type={'hotel'} />
                 </div>
               </div>

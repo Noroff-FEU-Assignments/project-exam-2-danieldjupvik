@@ -111,7 +111,9 @@ const NewPlace = () => {
                 ref={register}
                 className='inputElem'
               />
-              {errors.name && <p>{errors.name.message}</p>}
+              {errors.name && (
+                <p className='errorLabel'>{errors.name.message}</p>
+              )}
             </div>
 
             <div className='groupForm'>
@@ -126,7 +128,9 @@ const NewPlace = () => {
                 ref={register}
                 className='inputElem'
               />
-              {errors.image_url && <p>{errors.image_url.message}</p>}
+              {errors.image_url && (
+                <p className='errorLabel'>{errors.image_url.message}</p>
+              )}
             </div>
 
             <div className='groupForm'>
@@ -155,21 +159,6 @@ const NewPlace = () => {
             </div>
 
             <div className='groupForm'>
-              <label className='label' htmlFor='toggleBtn'>
-                Most Popular
-              </label>
-              <label className='toggleBtn '>
-                <input
-                  id='toggleBtn'
-                  className='toggleBtn--input'
-                  type='checkbox'
-                  onClick={handleToggleContact}
-                />
-                <span className='toggleBtn--slider'></span>
-              </label>
-            </div>
-
-            <div className='groupForm'>
               <label htmlFor='price' className='label'>
                 Price
               </label>
@@ -194,6 +183,21 @@ const NewPlace = () => {
             </div>
 
             <div className='groupForm'>
+              <label className='label' htmlFor='toggleBtn'>
+                Most Popular
+              </label>
+              <label className='toggleBtn '>
+                <input
+                  id='toggleBtn'
+                  className='toggleBtn--input'
+                  type='checkbox'
+                  onClick={handleToggleContact}
+                />
+                <span className='toggleBtn--slider'></span>
+              </label>
+            </div>
+
+            <div className='groupForm'>
               <label htmlFor='description' className='label'>
                 Description
               </label>
@@ -205,10 +209,12 @@ const NewPlace = () => {
                 ref={register}
                 className='inputElem'
               />
-              {errors.description && <p>{errors.description.message}</p>}
+              {errors.description && (
+                <p className='errorLabel'>{errors.description.message}</p>
+              )}
             </div>
 
-            <button type='submit' className='submitBtn'>
+            <button type='submit' className='button newPlace__btn'>
               {submitting ? 'Creating...' : 'Create'}
             </button>
           </fieldset>

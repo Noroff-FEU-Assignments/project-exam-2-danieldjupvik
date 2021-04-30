@@ -1,69 +1,79 @@
-.backIconAbsolute {
-  display: inline-block;
-  position: absolute;
-  // margin: 20px 0;
-  cursor: pointer;
-}
-.order-div {
+.adminPlace-div {
   display: flex;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.order-cards {
+
+.adminPlace-cards {
   display: flex;
   flex-direction: column;
+
   box-shadow: $cards-boxShadow;
   border-radius: 10px;
   margin: $global-spacing * 3 0px;
-  align-items: flex-start;
+  align-items: center;
   max-width: 500px;
   height: auto;
 }
-.order-imageDiv {
+.adminPlace-imageDiv {
   height: 100%;
   width: 100%;
 }
-.order-image {
+.adminPlace-image {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   max-width: 100%;
   object-fit: cover;
   height: 364px;
 }
-.order-info {
+.adminPlace-info {
   padding: 14px;
   display: flex;
   width: 100%;
-  // width: 150%;
-  // flex-wrap: wrap;
   flex-direction: column;
   position: relative;
 }
-.order-title {
+.adminPlace-title {
   font-size: 18px;
   display: block;
   font-weight: $subheading;
   font-family: $heading;
-  margin-bottom: 15px;
 }
-.order-name {
+.adminPlace-created {
+  margin-top: 12px;
 }
-.order-guests {
+.adminPlace-description {
+  margin-top: 12px;
 }
-.order-created {
-  margin-bottom: 15px;
+.adminPlace-description p {
+  margin: 0;
 }
-.order-dateDiv {
+.adminPlace-dateDiv {
   display: flex;
   flex-direction: column;
 }
-.order-date {
-  font-size: 17px;
+.adminPlace-rating {
+  margin-left: 5px;
+}
+.adminPlace-typeDiv {
+  margin-top: 12px;
+}
+.adminPlace-type {
+  opacity: 0.6;
+}
+.adminPlace-ratingDiv {
+  margin-top: $global-spacing;
+  display: flex;
+  align-items: center;
+}
+.adminPlace-number {
+  margin-left: 5px;
+  opacity: 0.7;
 }
 
 @media only screen and (min-width: $max-width) {
-  .order-div {
+  .adminPlace-div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -72,20 +82,20 @@
     margin-bottom: $global-spacing * 2;
     width: 100%;
   }
-  .order-cards {
+  .adminPlace-cards {
     flex-basis: calc(23% - 1px);
     transition: 0.4s;
     margin: 0px 0px 20px 20px;
     align-items: flex-start;
   }
-  .order-cards:nth-child(4n + 1) {
+  .adminPlace-cards:nth-child(4n + 1) {
     margin-left: 0px;
   }
-  .order-image {
+  .adminPlace-image {
     object-fit: cover;
     height: 200px;
   }
-  .order-imageDiv {
+  .adminPlace-imageDiv {
     object-fit: cover;
     height: 200px;
   }

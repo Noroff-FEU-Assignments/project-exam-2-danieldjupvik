@@ -10,6 +10,7 @@ import Orders from './pages/admin/Orders';
 import Inbox from './pages/admin/Inbox';
 import AdminPlace from './pages/admin/AdminPlaces';
 import NewPlace from './pages/admin/NewPlace';
+import NotFound from './pages/NotFound';
 
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -21,15 +22,30 @@ function App() {
         <Navigation />
         <Switch>
           <Route path='/' exact component={Home} />
-          <Route path='/place/:id' component={Place} />
-          <Route path='/places' component={Places} />
           <Route path='/contact' component={Contact} />
           <Route path='/login' component={Login} />
-          <Route path='/dashboard' component={Dashboard} />
-          <Route path='/orders' exact component={Orders} />
-          <Route path='/inbox' component={Inbox} />
-          <Route path='/admin-places' component={AdminPlace} />
-          <Route path='/new-place' component={NewPlace} />
+          <Route
+            path='/places'
+            render={({ match: { url } }) => (
+              <>
+                <Route path={`${url}/`} component={Places} exact />
+                <Route path={`${url}/place/:id`} component={Place} />
+              </>
+            )}
+          />
+          <Route
+            path='/dashboard'
+            render={({ match: { url } }) => (
+              <>
+                <Route path={`${url}/`} component={Dashboard} exact />
+                <Route path={`${url}/orders`} component={Orders} />
+                <Route path={`${url}/inbox`} component={Inbox} />
+                <Route path={`${url}/admin-places`} component={AdminPlace} />
+                <Route path={`${url}/new-place`} component={NewPlace} />
+              </>
+            )}
+          />
+          <Route component={NotFound} />
         </Switch>
         <Footer />
       </Router>

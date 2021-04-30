@@ -51,13 +51,26 @@ const Places = () => {
   return (
     <div className='custom-container'>
       <h1 className='heading'>Places</h1>
-      <Select
-        value={selected}
-        defaultValue={options[0]}
-        onChange={handleChange}
-        options={options}
-        setFieldValue={options[0].label}
-      />
+      <div className='filterDiv'>
+        <Select
+          value={selected}
+          defaultValue={options[0]}
+          onChange={handleChange}
+          options={options}
+          setFieldValue={options[0].label}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: '10px',
+            colors: {
+              ...theme.colors,
+              primary25: '#EAECEF',
+              primary: '#ff4f4f',
+              primary75: '#ff4f4f',
+              primary50: 'darkgrey',
+            },
+          })}
+        />
+      </div>
       {showLoader ? (
         <LoaderComp />
       ) : (

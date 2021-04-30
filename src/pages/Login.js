@@ -13,11 +13,11 @@ const Login = () => {
   const [auth, setAuth] = useContext(AuthContext);
   const history = useHistory();
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
     setSubmitting(true);
     setLoginError(null);
     try {
@@ -32,6 +32,7 @@ const Login = () => {
       setLoginError(error.toString());
     } finally {
       setSubmitting(false);
+      e.target[2].value = '';
     }
   };
 
@@ -58,34 +59,44 @@ const Login = () => {
               paddingBottom: '10px',
             }}
           >
-            Wrong password mate.
+            Wrong username or password.
           </p>
         )}
         <fieldset disabled={submitting} className='fieldset'>
           <div className='groupForm'>
-            <p className='label'>Username or Email</p>
+            <label htmlFor='identifier' className='label'>
+              Username or Email
+            </label>
             <input
               type='text'
+              id='identifier'
               name='identifier'
               placeholder='Username or email'
               ref={register}
               className='inputElem'
             />
-            {errors.identifier && <p>{errors.identifier.message}</p>}
+            {errors.identifier && (
+              <p className='errorLabel'>{errors.identifier.message}</p>
+            )}
           </div>
 
           <div className='groupForm'>
-            <p className='label'>Password</p>
+            <label htmlFor='password' className='label'>
+              Password
+            </label>
             <input
               type='password'
+              id='password'
               name='password'
               placeholder='Password'
               ref={register}
               className='inputElem'
             />
-            {errors.password && <p>{errors.password.message}</p>}
+            {errors.password && (
+              <p className='errorLabel'>{errors.password.message}</p>
+            )}
           </div>
-          <button type='submit' className='submitBtn'>
+          <button type='submit' className='button loginPage__btn'>
             {submitting ? 'Signing in...' : 'Sign in now'}
           </button>
         </fieldset>

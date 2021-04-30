@@ -14,8 +14,8 @@ const PopularCards = ({ places, type }) => {
           place.user_reviews.map((review) => (subRating += review.rating));
           const vote_average = subRating / place.user_reviews.length;
           return (
-            <Link to={`place/${place.id}`} key={place.id}>
-              <div className='popular-cards'>
+            <div className='popular-cards' key={place.id}>
+              <Link to={`places/place/${place.id}`}>
                 <div>
                   <img
                     className='popular-image'
@@ -28,7 +28,7 @@ const PopularCards = ({ places, type }) => {
                     <span className='popular-title'>{place.name}</span>
                   </div>
                   <div className='popular-ratingDiv'>
-                    <MdFavorite fontSize={'28px'} className={'heartIcon'} />
+                    <MdFavorite fontSize={'22px'} className={'heartIcon'} />
                     <span className='popular-rating'>
                       {vote_average ? Math.floor((vote_average * 100) / 5) : 0}%
                     </span>
@@ -37,8 +37,8 @@ const PopularCards = ({ places, type }) => {
                     </span>
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           );
         })}
     </>

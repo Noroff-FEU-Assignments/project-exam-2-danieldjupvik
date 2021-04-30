@@ -3,7 +3,7 @@
   position: sticky;
   z-index: 100;
   box-shadow: $down-boxShadow;
-  height: 90px;
+  height: 13vh;
   transition: 0.5s;
   overflow: hidden;
 
@@ -11,6 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 13vh;
   }
   &__logo {
     width: 130px;
@@ -20,7 +21,7 @@
 }
 
 #navbar-navigation {
-  padding-bottom: 32px;
+  padding-top: 50px;
 }
 
 .navbar-navigation {
@@ -34,7 +35,7 @@
     display: block;
     text-align: center;
     padding-top: $global-spacing;
-    padding-bottom: $global-spacing/2;
+    padding-bottom: $global-spacing;
     font-family: $heading;
   }
   &__links:hover {
@@ -69,7 +70,7 @@
 .open {
   display: block;
   transition: 0.5s;
-  height: 100vh !important;
+  height: 100.1vh !important;
 }
 
 .customActive::after {
@@ -83,6 +84,10 @@
   top: 10px;
   margin: 0 auto;
   margin-top: -3px;
+}
+
+.nav-buttons {
+  margin-top: $global-spacing * 2;
 }
 
 /* Hamburger menu icon */
@@ -124,6 +129,9 @@
 @media only screen and (min-width: $max-width) {
   .icon-container {
     display: none;
+  }
+  .nav-buttons {
+    margin-top: 0;
   }
   #navbar-navigation {
     padding: 0;

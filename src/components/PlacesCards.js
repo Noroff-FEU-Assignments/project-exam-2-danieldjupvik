@@ -18,7 +18,7 @@ const PlacesCards = ({ places }) => {
         const vote_average = subRating / place.user_reviews.length;
         return (
           <div className='places__card' key={place.id}>
-            <Link to={`place/${place.id}`} className='places--link'>
+            <Link to={`places/place/${place.id}`} className='places--link'>
               <div className='places--imgDiv'>
                 <img
                   className='places--img'

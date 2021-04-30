@@ -5,7 +5,7 @@
   text-align: center;
   margin-top: $global-spacing * 3;
   margin-bottom: $global-spacing * 3;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .subheading {
@@ -13,5 +13,14 @@
   font-family: $heading;
   font-weight: $subheading;
   margin-top: $global-spacing * 3;
-  font-size: 24px;
+  font-size: 20px;
+}
+
+@media only screen and (min-width: $max-width) {
+  .heading {
+    font-size: 30px;
+  }
+  .subheading {
+    font-size: 27px;
+  }
 }

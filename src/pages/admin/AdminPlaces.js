@@ -1,4 +1,5 @@
 import { BsChevronDoubleLeft } from 'react-icons/bs';
+import { MdFavorite } from 'react-icons/md';
 import { TiDelete } from 'react-icons/ti';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -7,6 +8,7 @@ import useAxios from '../../utils/useAxios';
 import { useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
 import LoaderComp from '../../components/LoaderComp';
+import { capitalize } from '../../utils/library';
 
 export const monthNames = [
   'Jan',
@@ -91,7 +93,7 @@ const AdminPlaces = () => {
         <LoaderComp />
       ) : (
         <>
-          <div>
+          <div className='adminPlace-div'>
             {places
               .sort(function (a, b) {
                 return b.id - a.id;
@@ -100,7 +102,6 @@ const AdminPlaces = () => {
               .map((order) => {
                 const formatDate = (date) => {
                   var d = new Date(date);
-
                   var year = d.getFullYear();
                   var month = monthNames[d.getMonth()];
                   var day = d.getDate();
@@ -108,32 +109,58 @@ const AdminPlaces = () => {
                   return created;
                 };
 
+                let subRating = 0;
+                order.user_reviews.map(
+                  (review) => (subRating += review.rating)
+                );
+                const vote_average = subRating / order.user_reviews.length;
                 return (
-                  <div key={order.id} className='order-cards'>
-                    <div className='order-imageDiv'>
+                  <div key={order.id} className='adminPlace-cards'>
+                    <div className='adminPlace-imageDiv'>
                       <img
-                        className='order-image'
+                        className='adminPlace-image'
                         src={order.image_url}
                         alt={order.place_name}
                       />
                     </div>
-                    <div className='order-info'>
+                    <div className='adminPlace-info'>
                       <TiDelete
                         onClick={() => handleDeletePlace(order.id)}
                         fontSize={'32px'}
                         className='deleteIcon'
                       />
-                      <span className='order-title'>{order.name}</span>
-                      <span className='order-created'>
+                      <span className='adminPlace-title'>{order.name}</span>
+                      <div className='adminPlace-typeDiv'>
+                        <span> {capitalize(order.type)}</span>
+                      </div>
+                      <div className='adminPlace-ratingDiv'>
+                        <MdFavorite fontSize={'26px'} className={'redIcon'} />
+                        <span className='adminPlace-rating'>
+                          {vote_average
+                            ? Math.floor((vote_average * 100) / 5)
+                            : 0}
+                          %
+                        </span>
+                        <span className='adminPlace-number'>
+                          ({order.user_reviews?.length})
+                        </span>
+                      </div>
+                      <span className='adminPlace-created'>
                         Created: {formatDate(order.created_at)}
                       </span>
+                      <div className='adminPlace-description'>
+                        <p>{order.description}</p>
+                      </div>
                     </div>
                   </div>
                 );
               })}
           </div>
           {places.length > 4 ? (
-            <div className='button' onClick={() => setShowMore(!showMore)}>
+            <div
+              className='button hollow__btn viewMore__btn adminViewMore__btn'
+              onClick={() => setShowMore(!showMore)}
+            >
               {showMore ? `Show more (${places.length - 4})` : 'Show less'}
             </div>
           ) : null}

@@ -3,13 +3,39 @@
 }
 
 .popular-cards {
-  display: flex;
-  flex-direction: column;
   margin-top: $global-spacing * 2;
-  margin-bottom: $global-spacing * 2;
+  margin-bottom: $global-spacing;
+  margin-right: $global-spacing;
+  flex: 0 0 auto;
+  width: 150px;
+}
+.cards-div {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #ffffff;
+  }
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-scrollbar:horizontal {
+    height: 9px;
+  }
 }
 .popular-image {
   border-radius: 10px;
+  object-fit: cover;
+  height: 166px;
+  // width: 120px;
 }
 
 .popular-title {
@@ -18,9 +44,9 @@
 }
 .popular-info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  font-size: 18px;
+  font-size: 16px;
   margin-top: $global-spacing;
 }
 .popular-rating {
@@ -29,8 +55,26 @@
 .popular-ratingDiv {
   display: flex;
   align-items: center;
+  margin-top: $global-spacing/2;
 }
 .popular-number {
   margin-left: 5px;
   opacity: 0.7;
+}
+
+@media only screen and (min-width: $max-width) {
+  .most-popularDiv {
+    width: fit-content;
+    margin: 0 auto;
+  }
+  .popular-cards {
+    margin: 2rem 0px 20px 30px;
+  }
+  .cards-div {
+    overflow-x: unset;
+    flex-wrap: wrap;
+  }
+  .popular-cards:nth-child(4n + 1) {
+    margin-left: 0px;
+  }
 }

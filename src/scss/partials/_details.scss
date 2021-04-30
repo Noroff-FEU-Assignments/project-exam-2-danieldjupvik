@@ -1,6 +1,5 @@
 .backIcon {
   display: inline-block;
-  // position: absolute;
   margin: 20px 0;
   cursor: pointer;
 }
@@ -38,7 +37,7 @@
   margin-left: 5px;
 }
 .details-typeDiv {
-  margin-top: 5px;
+  margin-top: 16px;
 }
 .details-type {
   opacity: 0.6;
@@ -47,6 +46,9 @@
   margin-top: $global-spacing;
   display: flex;
   align-items: center;
+}
+.ratingGroupFrom {
+  margin-top: $global-spacing * 2 !important;
 }
 .details-number {
   margin-left: 5px;
@@ -58,7 +60,6 @@
   justify-content: space-between;
   align-items: center;
   margin: 60px 0;
-  // margin-bottom: 80px;
 }
 .shareDiv:hover {
   opacity: 0.6;
@@ -74,24 +75,81 @@
 .details-price p {
   margin: 0;
 }
-.orderBtn {
-  background: $main-color;
-  font-weight: $normal;
-  font-size: 20px;
-  width: fit-content;
-  margin: 0;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-  // padding: ;
-  padding: 12px 30px;
-  border: none;
-  cursor: pointer;
-  font-family: $heading;
-}
 
 .star-ratings {
   display: block !important;
+}
+
+.review-div {
+  margin: 60px 0;
+}
+.review-cards {
+  margin: $global-spacing * 2 0;
+  background-color: $secondary-color;
+  border-radius: 10px;
+  padding: 15px;
+}
+.review-name {
+  font-size: 18px;
+  font-weight: $semibold;
+  margin-bottom: 5px;
+}
+.review-date {
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+.review-stars {
+  margin-bottom: 5px;
+}
+
+@media only screen and (min-width: $max-width) {
+  .details-div {
+    display: flex;
+    max-width: 660px;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 48px;
+  }
+  .details-image {
+    // max-width: 400px;
+    height: 330px;
+    object-fit: cover;
+  }
+  .details-imageDiv {
+    margin-right: $global-spacing * 2;
+    min-width: 50%;
+  }
+  .details-wrapper {
+    margin-top: 0;
+  }
+  .details-infoDiv {
+    min-width: 50%;
+    // max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .details-orderDiv {
+    margin: 0;
+  }
+  .review-div {
+    margin: 0px 0;
+    width: 100%;
+  }
+  .leaveReview-div {
+    min-width: 40%;
+    max-width: 330px;
+  }
+  .review-list {
+    margin-right: $global-spacing * 2;
+    min-width: 60%;
+  }
+
+  .review-wrapper {
+    display: flex;
+    max-width: 660px;
+    margin: 0 auto;
+    justify-content: center;
+    margin-bottom: $global-spacing * 3;
+  }
 }

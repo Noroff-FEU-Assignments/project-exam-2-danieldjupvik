@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import './scss/style.scss';
 import App from './App';
+import './scss/style.scss';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

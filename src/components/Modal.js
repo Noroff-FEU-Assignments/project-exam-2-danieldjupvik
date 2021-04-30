@@ -40,7 +40,7 @@ const OrderModal = (props) => {
     setEndDate(tomorrow.setDate(tomorrow.getDate() + 1));
   };
 
-  const { register, handleSubmit, errors, reset } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(orderSchema),
   });
 
@@ -89,7 +89,8 @@ const OrderModal = (props) => {
       <Modal.Body>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          // style={{ maxWidth: '350px', margin: '0 auto', marginTop: '30px' }}
+          style={{ maxWidth: '320px', margin: '0 auto', paddingBottom: '20px' }}
+          id='order-form'
         >
           {orderError && (
             <p
@@ -105,38 +106,49 @@ const OrderModal = (props) => {
           )}
           <fieldset disabled={submitting} className='fieldset'>
             <div className='groupForm'>
-              <p className='label'>Full name</p>
+              <label htmlFor='name' className='label'>
+                Full name
+              </label>
               <input
                 type='text'
+                id='name'
                 name='name'
                 placeholder='Full name'
                 ref={register}
                 className='inputElem'
               />
-              {errors.name && <p>{errors.name.message}</p>}
+              {errors.name && (
+                <p className='errorLabel'>{errors.name.message}</p>
+              )}
             </div>
 
             <div className='groupForm'>
-              <p className='label'>Guests</p>
+              <label htmlFor='guests' className='label'>
+                Guests
+              </label>
               <input
                 type='number'
+                id='guests'
                 name='guests'
                 defaultValue={1}
                 ref={register}
-                className='inputElem'
+                className='inputElem guestInput'
               />
-              {errors.guests && <p>{errors.guests.message}</p>}
+              {errors.guests && (
+                <p className='errorLabel'>{errors.guests.message}</p>
+              )}
             </div>
 
             <div className='groupForm'>
-              {errorDate ? <p>Both check in and out is required</p> : null}
-
+              <label htmlFor='startDate' className='label'>
+                Check In
+              </label>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ThemeProvider theme={defaultMaterialTheme}>
                   <KeyboardDatePicker
                     id={'startDate'}
                     autoOk
-                    label='Check In'
+                    label={false}
                     variant='inline'
                     inputVariant='outlined'
                     format={'dd/MM/yyyy'}
@@ -153,12 +165,15 @@ const OrderModal = (props) => {
             </div>
 
             <div className='groupForm'>
+              <label htmlFor='endDate' className='label'>
+                Check Out
+              </label>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ThemeProvider theme={defaultMaterialTheme}>
                   <KeyboardDatePicker
                     id={'endDate'}
                     autoOk
-                    label='Check Out'
+                    label={false}
                     inputVariant='outlined'
                     variant='inline'
                     placeholder='Select a end date'
@@ -169,16 +184,27 @@ const OrderModal = (props) => {
                   />
                 </ThemeProvider>
               </MuiPickersUtilsProvider>
+              {errorDate ? (
+                <p className='errorLabel'>Both check in and out is required</p>
+              ) : null}
             </div>
-            <button onClick={props.onHide} className='submitBtn'>
-              Close
-            </button>
-            <button type='submit' className='submitBtn'>
-              {submitting ? 'Sending order...' : 'Send order'}
-            </button>
           </fieldset>
         </form>
       </Modal.Body>
+      <Modal.Footer>
+        <div className='modalBtnDiv'>
+          <button onClick={props.onHide} className='closeBtn button'>
+            Close
+          </button>
+          <button
+            type='submit'
+            form='order-form'
+            className='sendOrderBtn button'
+          >
+            {submitting ? 'Sending order...' : 'Send order'}
+          </button>
+        </div>
+      </Modal.Footer>
     </Modal>
   );
 };

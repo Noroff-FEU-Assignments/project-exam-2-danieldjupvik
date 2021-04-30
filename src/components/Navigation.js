@@ -41,7 +41,7 @@ const Navigation = () => {
           </div>
           <div
             id='navbar-navigation'
-            className={open ? 'navbar-navigation open' : 'navbar-navigation'}
+            className={open ? 'navbar-navigation' : 'navbar-navigation'}
           >
             <NavLink
               onClick={openHamburgerMenu}
@@ -84,7 +84,7 @@ const Navigation = () => {
                   onClick={(openHamburgerMenu, logout)}
                   className='login__btn button'
                 >
-                  Log Out
+                  Logout
                 </div>
               ) : (
                 <Link

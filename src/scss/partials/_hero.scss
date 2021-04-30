@@ -5,7 +5,7 @@
       rgba(0, 0, 0, 0.9542191876750701) 97%
     ),
     url(../../assets/images/hero-backdrop.jpg);
-  height: 89vh;
+  height: 87.1vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -13,9 +13,9 @@
   display: flex;
   // align-items: center;
   // justify-content: space-between;
-  padding-top: 100px;
-  padding-bottom: 240px;
-
+  // padding-top: 100px;
+  // padding-bottom: 240px;
+  padding: 70px 0px;
   &__div {
     display: flex;
     max-width: 450px !important;
@@ -24,7 +24,7 @@
   }
   &__heading {
     text-align: center;
-    font-size: 28px;
+    font-size: 26px;
     color: $background-color;
     font-family: $heading;
     // margin-bottom: 65px;
@@ -34,8 +34,19 @@
 .form-control {
   padding-left: 45px !important;
   border-radius: 10px !important;
-  padding-top: 32px !important;
-  padding-bottom: 32px !important;
+  padding-top: 28px !important;
+  padding-bottom: 28px !important;
+  border: none !important;
+  border: 1px solid $border-color !important;
+  width: 100%;
+}
+.dropdown-item:active {
+  background-color: darkgrey !important;
+}
+.form-control:focus {
+  outline: none !important;
+  border: 1px solid $main-color !important;
+  box-shadow: none !important;
 }
 .active {
   background-color: $main-color !important;
@@ -49,6 +60,14 @@
 
 @media only screen and (min-width: $max-width) {
   .hero {
-    height: 87vh;
+    height: 85vh;
+    padding-top: 90px;
+  }
+  .hero__div {
+    width: 100%;
+    max-width: 600px !important;
+  }
+  .hero__heading {
+    font-size: 32px;
   }
 }

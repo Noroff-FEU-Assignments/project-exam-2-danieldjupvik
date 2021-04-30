@@ -91,7 +91,7 @@ const Inbox = () => {
         <LoaderComp />
       ) : (
         <>
-          <div>
+          <div className='inbox-div'>
             {inbox
               .sort(function (a, b) {
                 return b.id - a.id;
@@ -134,7 +134,10 @@ const Inbox = () => {
               })}
           </div>
           {inbox.length > 4 ? (
-            <div className='button' onClick={() => setShowMore(!showMore)}>
+            <div
+              className='button hollow__btn viewMore__btn adminViewMore__btn'
+              onClick={() => setShowMore(!showMore)}
+            >
               {showMore ? `Show more (${inbox.length - 4})` : 'Show less'}
             </div>
           ) : null}

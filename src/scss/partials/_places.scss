@@ -4,12 +4,14 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: $global-spacing * 2;
+  margin-bottom: $global-spacing * 2;
+
   width: 100%;
   &__card {
     width: 100%;
     flex-basis: calc(50% - 1rem);
     position: relative;
-    // padding-bottom: 4rem;
+
     margin: 0px 0px 20px 0px;
   }
   &--link {
@@ -19,13 +21,16 @@
   &--link:hover {
     color: $black-color;
   }
-  &--imgDiv {
-  }
+
   &--img {
     object-fit: cover;
     height: 166px;
     border-radius: 10px;
   }
+}
+
+.css-1g6d9mf-control {
+  box-shadow: none !important;
 }
 
 .places-title {
@@ -46,6 +51,7 @@
   display: flex;
   font-size: 14px;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .places-ratingDiv {
   display: flex;
@@ -70,6 +76,10 @@
     width: fit-content;
   }
 
+  .filterDiv {
+    max-width: 150px;
+    margin-left: auto;
+  }
   .places {
     justify-content: unset;
     &__card {
@@ -84,7 +94,6 @@
       margin-left: 0px;
     }
     &__card:hover {
-      // filter: grayscale(100%);
       transition: 0.4s;
     }
     &__card:hover &--img {

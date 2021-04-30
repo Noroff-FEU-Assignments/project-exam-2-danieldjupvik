@@ -14,6 +14,7 @@ import { reviewSchema } from '../utils/schemas';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoaderComp from '../components/LoaderComp';
+import { formatDate } from '../utils/library';
 
 const Tooltip = styled('div')`
   position: absolute;
@@ -73,7 +74,7 @@ const Place = () => {
   const [vote_average, setVote_average] = useState();
   const [textToCopy, setTextToCopy] = useState();
   const [modalShow, setModalShow] = useState(false);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
   const [reviews, setReviews] = useState([]);
   const [reRender, setReRender] = useState(true);
   const [showMoreReviews, setShowMoreReviews] = useState(true);
@@ -82,7 +83,6 @@ const Place = () => {
   const history = useHistory();
 
   useEffect(() => {
-    // setLoader(true);
     setTextToCopy(window.location.href);
     const getDetails = async () => {
       try {
@@ -102,6 +102,8 @@ const Place = () => {
     history.goBack();
   }
 
+  console.log(rating);
+
   useEffect(() => {
     let subRating = 0;
     details.user_reviews?.map((review) => (subRating += review.rating));
@@ -120,7 +122,7 @@ const Place = () => {
     }, 3000);
   };
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(reviewSchema),
   });
 
@@ -135,6 +137,7 @@ const Place = () => {
         name: data.name,
         rating: rating,
         description: data.description,
+        created: new Date(),
       },
     ];
 
@@ -145,10 +148,12 @@ const Place = () => {
       console.log(response);
       if (response.status === 200) {
         setReRender(!reRender);
+        setRating(1);
       }
     } catch (error) {
       console.log(error);
     } finally {
+      reset();
     }
   };
 
@@ -164,177 +169,214 @@ const Place = () => {
         {showLoader ? (
           <LoaderComp />
         ) : (
-          <div>
-            <div>
-              <img
-                className='details-image'
-                src={details.image_url}
-                alt={details.name}
-              />
-            </div>
-            <div>
-              <div className='details-wrapper'>
-                <div className='details-info'>
-                  <div>
-                    <h1 className='details-title'>{details.name}</h1>
-                  </div>
-                  <div className='details-typeDiv'>
-                    <span> {capitalize(details.type)}</span>
-                  </div>
-                  <div className='details-ratingDiv'>
-                    <MdFavorite fontSize={'26px'} className={'redIcon'} />
-                    <span className='details-rating'>
-                      {vote_average ? Math.floor((vote_average * 100) / 5) : 0}%
-                    </span>
-                    <span className='details-number'>
-                      ({details.user_reviews?.length})
-                    </span>
-                  </div>
-                </div>
-                <div ref={containerRef}>
-                  <div
-                    ref={triggerRef}
-                    className='shareDiv'
-                    onClick={() => {
-                      navigator.clipboard.writeText(textToCopy);
-                      handleClick();
-                    }}
-                  >
-                    <FiShare fontSize={'28px'} />
-                  </div>
-                  <Overlay
-                    show={show}
-                    rootClose
-                    offset={[0, 10]}
-                    onHide={() => dispatch('hide')}
-                    placement={'left'}
-                    container={containerRef}
-                    target={triggerRef}
-                  >
-                    {({ props, arrowProps, placement }) => (
-                      <Tooltip {...props} placement={placement}>
-                        <Arrow
-                          {...arrowProps}
-                          placement={placement}
-                          style={arrowProps.style}
-                        />
-                        <Body>URL copied to clipboard</Body>
-                      </Tooltip>
-                    )}
-                  </Overlay>
-                </div>
-              </div>
-              <div className='details-description'>
-                <p>{details.description}</p>
-              </div>
-              <div className='details-orderDiv'>
-                <div className='details-price'>
-                  <p>{details.price},- </p>
-                </div>
-                <button
-                  onClick={() => setModalShow(true)}
-                  className='orderBtn button'
-                >
-                  Order
-                </button>
-                <OrderModal
-                  animation={false}
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  name={details.name}
-                  id={details.id}
-                  image_url={details.image_url}
+          <>
+            <div className='details-div'>
+              <div className='details-imageDiv'>
+                <img
+                  className='details-image'
+                  src={details.image_url}
+                  alt={details.name}
                 />
               </div>
-              <div>
-                <div>
-                  <h2>User Reviews</h2>
-                  {details.user_reviews
-                    ?.sort(function (a, b) {
-                      return b.id - a.id;
-                    })
-                    .slice(0, showMoreReviews ? 4 : 100000000)
-                    .map((reviews) => {
-                      return (
-                        <div key={reviews.id}>
-                          <div>
-                            <span>{reviews.name}</span>
-                          </div>
-                          <div>
-                            <StarRatings
-                              rating={reviews.rating}
-                              starRatedColor='red'
-                              numberOfStars={5}
-                              name='rating'
-                              starDimension='20px'
-                              starSpacing='5px'
-                            />
-                          </div>
-                          <div>
-                            <span>{reviews.description}</span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  {details.user_reviews?.length > 4 ? (
-                    <div
-                      className='button'
-                      onClick={() => setShowMoreReviews(!showMoreReviews)}
-                    >
-                      {showMoreReviews
-                        ? `Show more (${details.user_reviews?.length - 4})`
-                        : 'Show less'}
+              <div className='details-infoDiv'>
+                <div className='details-desktopWrapper'>
+                  <div className='details-wrapper'>
+                    <div className='details-info'>
+                      <div>
+                        <h1 className='details-title'>{details.name}</h1>
+                      </div>
+                      <div className='details-typeDiv'>
+                        <span> {capitalize(details.type)}</span>
+                      </div>
+                      <div className='details-ratingDiv'>
+                        <MdFavorite fontSize={'26px'} className={'redIcon'} />
+                        <span className='details-rating'>
+                          {vote_average
+                            ? Math.floor((vote_average * 100) / 5)
+                            : 0}
+                          %
+                        </span>
+                        <span className='details-number'>
+                          ({details.user_reviews?.length})
+                        </span>
+                      </div>
                     </div>
-                  ) : null}
-                  <h3>Leave a review</h3>
-                  <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    style={{ display: 'flex', flexDirection: 'column' }}
-                  >
-                    <fieldset>
-                      <div className='groupForm'>
-                        <label className='label'>Name</label>
-                        <input
-                          name='name'
-                          ref={register}
-                          type='text'
-                          className='inputElem'
-                        />
-
-                        {errors.name && <p>{errors.name.message}</p>}
+                    <div ref={containerRef}>
+                      <div
+                        ref={triggerRef}
+                        className='shareDiv'
+                        onClick={() => {
+                          navigator.clipboard.writeText(textToCopy);
+                          handleClick();
+                        }}
+                      >
+                        <FiShare fontSize={'28px'} />
                       </div>
-                      <div className='groupForm'>
-                        <label className='label'>Rating</label>
-                        <StarRatings
-                          rating={rating}
-                          starRatedColor='red'
-                          numberOfStars={5}
-                          name='rating'
-                          changeRating={setRating}
-                          starDimension='20px'
-                          starSpacing='5px'
-                        />
-                      </div>
-                      <div className='groupForm'>
-                        <label className='label'>Description</label>
-                        <textarea
-                          name='description'
-                          ref={register}
-                          className='inputElem'
-                        />
-                        {errors.description && (
-                          <p>{errors.description.message}</p>
+                      <Overlay
+                        show={show}
+                        rootClose
+                        offset={[0, 10]}
+                        onHide={() => dispatch('hide')}
+                        placement={'left'}
+                        container={containerRef}
+                        target={triggerRef}
+                      >
+                        {({ props, arrowProps, placement }) => (
+                          <Tooltip {...props} placement={placement}>
+                            <Arrow
+                              {...arrowProps}
+                              placement={placement}
+                              style={arrowProps.style}
+                            />
+                            <Body>URL copied to clipboard</Body>
+                          </Tooltip>
                         )}
-                      </div>
-                      <button type='submit' className='button'>
-                        Publish review
-                      </button>
-                    </fieldset>
-                  </form>
+                      </Overlay>
+                    </div>
+                  </div>
+                  <div>
+                    <p className='details-description'>{details.description}</p>
+                  </div>
+                </div>
+                <div className='details-orderDiv'>
+                  <div className='details-price'>
+                    <p>{details.price},- </p>
+                  </div>
+                  <button
+                    onClick={() => setModalShow(true)}
+                    className='orderBtn button'
+                  >
+                    Order
+                  </button>
+                  <OrderModal
+                    animation={false}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    name={details.name}
+                    id={details.id}
+                    image_url={details.image_url}
+                  />
                 </div>
               </div>
             </div>
-          </div>
+
+            <hr />
+            <div className='review-wrapper'>
+              {details.user_reviews.length ? (
+                <>
+                  <div className='review-div review-list'>
+                    <h2 className='subheading'>User Reviews</h2>
+                    {details.user_reviews
+                      ?.sort(function (a, b) {
+                        return b.id - a.id;
+                      })
+                      .slice(0, showMoreReviews ? 4 : 100000000)
+                      .map((reviews) => {
+                        return (
+                          <div key={reviews.id} className='review-cards'>
+                            <div className='review-name'>
+                              <span>{capitalize(reviews.name)}</span>
+                            </div>
+                            <div className='review-stars'>
+                              <StarRatings
+                                rating={reviews.rating}
+                                starRatedColor='#ff4f4f'
+                                numberOfStars={5}
+                                name='rating'
+                                starDimension='20px'
+                                starSpacing='5px'
+                                svgIconPath='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'
+                                svgIconViewBox='0 0 24 24'
+                              />
+                            </div>
+                            <div className='review-date'>
+                              <span>{formatDate(reviews.created)}</span>
+                            </div>
+                            <div className='review-description'>
+                              <p>{reviews.description}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    {details.user_reviews?.length > 4 ? (
+                      <div
+                        className='button hollow__btn viewMore__btn'
+                        onClick={() => setShowMoreReviews(!showMoreReviews)}
+                      >
+                        {showMoreReviews
+                          ? `Show more (${details.user_reviews?.length - 4})`
+                          : 'Show less'}
+                      </div>
+                    ) : null}
+                  </div>
+                  <hr />
+                </>
+              ) : null}
+              <div className='review-div leaveReview-div'>
+                <h3 className='subheading'>Leave a review</h3>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  style={{ display: 'flex', flexDirection: 'column' }}
+                >
+                  <fieldset>
+                    <div className='groupForm ratingGroupFrom'>
+                      <label className='label'>Rating</label>
+                      <StarRatings
+                        rating={rating}
+                        starRatedColor='#ff4f4f'
+                        numberOfStars={5}
+                        name='rating'
+                        changeRating={setRating}
+                        starDimension='20px'
+                        starSpacing='5px'
+                        svgIconPath='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'
+                        svgIconViewBox='0 0 24 24'
+                      />
+                    </div>
+                    <div className='groupForm'>
+                      <label htmlFor='name' className='label'>
+                        Name
+                      </label>
+                      <input
+                        name='name'
+                        id='name'
+                        ref={register}
+                        type='text'
+                        className='inputElem'
+                        defaultValue='Anonymous'
+                      />
+
+                      {errors.name && (
+                        <p className='errorLabel'>{errors.name.message}</p>
+                      )}
+                    </div>
+
+                    <div className='groupForm'>
+                      <label htmlFor='description' className='label'>
+                        Review text
+                      </label>
+                      <textarea
+                        rows='4'
+                        id='description'
+                        name='description'
+                        ref={register}
+                        className='inputElem'
+                        placeholder='Review text here'
+                      />
+                      {errors.description && (
+                        <p className='errorLabel'>
+                          {errors.description.message}
+                        </p>
+                      )}
+                    </div>
+                    <button type='submit' className='button publish__btn'>
+                      Publish
+                    </button>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </>
         )}
       </div>
     </>

@@ -73,6 +73,29 @@
   height: 100.1vh !important;
 }
 
+.languageDropDown {
+  background-color: white;
+  width: auto;
+  position: absolute;
+  top: 105%;
+  transform: translate(-0%, -0%);
+  border-radius: 10px;
+  padding: $global-spacing/1.2;
+  box-shadow: $cards-boxShadow;
+}
+.languageDropDown-item {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.languageDropDown-item:hover {
+  background-color: $border-color;
+}
+.activeLanguage {
+  background-color: $border-color;
+}
 .customActive::after {
   content: '';
   display: block;
@@ -144,8 +167,17 @@
     flex-direction: row;
   }
 
+  .languageDropDown {
+    right: -5px;
+    transform: translate(-5%, -0%);
+  }
+
   .navigation {
     height: unset !important;
+    overflow: unset;
+    &__div {
+      height: unset !important;
+    }
     &__logo {
       width: 130px;
       margin-top: 20px;

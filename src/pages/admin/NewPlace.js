@@ -9,8 +9,10 @@ import AuthContext from '../../context/AuthContext';
 import { createPlaceSchema } from '../../utils/schemas';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 
 const NewPlace = () => {
+  const { t } = useTranslation();
   const history = useHistory();
   const [config, setConfig] = useState([]);
   const https = useAxios();
@@ -80,12 +82,9 @@ const NewPlace = () => {
       <div onClick={navigate} className={'backIconAbsolute'}>
         <BsChevronDoubleLeft fontSize={'35px'} style={{ textAlign: 'left' }} />
       </div>
-      <h1 className='heading'>Create new place</h1>
+      <h1 className='heading'>{t('createNewPlace')}</h1>
       <div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          style={{ maxWidth: '350px', margin: '0 auto', marginTop: '30px' }}
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className='adminNewPlacesForm'>
           {createError && (
             <p
               style={{
@@ -95,127 +94,130 @@ const NewPlace = () => {
                 paddingBottom: '10px',
               }}
             >
-              Something went wrong when sending..
+              Something went wrong when creating place..
             </p>
           )}
           <fieldset disabled={submitting} className='fieldset'>
-            <div className='groupForm'>
-              <label htmlFor='name' className='label'>
-                Place name
-              </label>
-              <input
-                type='text'
-                name='name'
-                id='name'
-                placeholder='Place name'
-                ref={register}
-                className='inputElem'
-              />
-              {errors.name && (
-                <p className='errorLabel'>{errors.name.message}</p>
-              )}
+            <div className='formSectionDiv'>
+              <div className='formSection formSection-1'>
+                <div className='groupForm'>
+                  <label htmlFor='name' className='label'>
+                    {t('placeName')}
+                  </label>
+                  <input
+                    type='text'
+                    name='name'
+                    id='name'
+                    placeholder='Place name'
+                    ref={register}
+                    className='inputElem'
+                  />
+                  {errors.name && (
+                    <p className='errorLabel'>{errors.name.message}</p>
+                  )}
+                </div>
+
+                <div className='groupForm'>
+                  <label htmlFor='image_url' className='label'>
+                    {t('imageUrl')}
+                  </label>
+                  <input
+                    type='url'
+                    name='image_url'
+                    id='image_url'
+                    placeholder='https://example.com/img.jpg'
+                    ref={register}
+                    className='inputElem'
+                  />
+                  {errors.image_url && (
+                    <p className='errorLabel'>{errors.image_url.message}</p>
+                  )}
+                </div>
+
+                <div className='groupForm'>
+                  <label htmlFor='type' className='label'>
+                    {t('placeType')}
+                  </label>
+                  <select
+                    name='type'
+                    id='type'
+                    ref={register}
+                    className='inputElem'
+                  >
+                    <option value=''>{t('chooseType')}</option>
+
+                    {config.type?.map((type) => {
+                      return (
+                        <option key={type.id} value={type.type}>
+                          {type.type}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  {errors.type && (
+                    <p className='errorLabel'>{errors.type.message}</p>
+                  )}
+                </div>
+              </div>
+              <div className='formSection'>
+                <div className='groupForm'>
+                  <label htmlFor='price' className='label'>
+                    {t('price')}
+                  </label>
+                  <select
+                    name='price'
+                    id='price'
+                    ref={register}
+                    className='inputElem'
+                  >
+                    <option value=''>{t('choosePrice')}</option>
+                    {config.price?.map((price) => {
+                      return (
+                        <option key={price.id} value={price.price}>
+                          {price.price},-
+                        </option>
+                      );
+                    })}
+                  </select>
+                  {errors.price && (
+                    <p className='errorLabel'>{errors.price.message}</p>
+                  )}
+                </div>
+                <div className='groupForm'>
+                  <label className='label' htmlFor='toggleBtn'>
+                    {t('mostPopular')}
+                  </label>
+                  <label className='toggleBtn '>
+                    <input
+                      id='toggleBtn'
+                      className='toggleBtn--input'
+                      type='checkbox'
+                      onClick={handleToggleContact}
+                    />
+                    <span className='toggleBtn--slider'></span>
+                  </label>
+                </div>
+
+                <div className='groupForm'>
+                  <label htmlFor='description' className='label'>
+                    {t('description')}
+                  </label>
+                  <textarea
+                    rows='5'
+                    name='description'
+                    id='description'
+                    placeholder={t('descriptionText')}
+                    ref={register}
+                    className='inputElem'
+                  />
+                  {errors.description && (
+                    <p className='errorLabel'>{errors.description.message}</p>
+                  )}
+                </div>
+              </div>
             </div>
-
-            <div className='groupForm'>
-              <label htmlFor='image_url' className='label'>
-                Image URL
-              </label>
-              <input
-                type='url'
-                name='image_url'
-                id='image_url'
-                placeholder='https://example.com/img.jpg'
-                ref={register}
-                className='inputElem'
-              />
-              {errors.image_url && (
-                <p className='errorLabel'>{errors.image_url.message}</p>
-              )}
-            </div>
-
-            <div className='groupForm'>
-              <label htmlFor='type' className='label'>
-                Place type
-              </label>
-              <select
-                name='type'
-                id='type'
-                ref={register}
-                className='inputElem'
-              >
-                <option value=''>Choose a type</option>
-
-                {config.type?.map((type) => {
-                  return (
-                    <option key={type.id} value={type.type}>
-                      {type.type}
-                    </option>
-                  );
-                })}
-              </select>
-              {errors.type && (
-                <p className='errorLabel'>{errors.type.message}</p>
-              )}
-            </div>
-
-            <div className='groupForm'>
-              <label htmlFor='price' className='label'>
-                Price
-              </label>
-              <select
-                name='price'
-                id='price'
-                ref={register}
-                className='inputElem'
-              >
-                <option value=''>Choose a price</option>
-                {config.price?.map((price) => {
-                  return (
-                    <option key={price.id} value={price.price}>
-                      {price.price},-
-                    </option>
-                  );
-                })}
-              </select>
-              {errors.price && (
-                <p className='errorLabel'>{errors.price.message}</p>
-              )}
-            </div>
-
-            <div className='groupForm'>
-              <label className='label' htmlFor='toggleBtn'>
-                Most Popular
-              </label>
-              <label className='toggleBtn '>
-                <input
-                  id='toggleBtn'
-                  className='toggleBtn--input'
-                  type='checkbox'
-                  onClick={handleToggleContact}
-                />
-                <span className='toggleBtn--slider'></span>
-              </label>
-            </div>
-
-            <div className='groupForm'>
-              <label htmlFor='description' className='label'>
-                Description
-              </label>
-              <textarea
-                rows='5'
-                name='description'
-                id='description'
-                placeholder='Description here'
-                ref={register}
-                className='inputElem'
-              />
-              {errors.description && (
-                <p className='errorLabel'>{errors.description.message}</p>
-              )}
-            </div>
-
-            <button type='submit' className='button newPlace__btn'>
-              {submitting ? 'Creating...' : 'Create'}
+            <button type='submit' className='button newPlace__btn solid__btn'>
+              {submitting ? t('creating') : t('create')}
             </button>
           </fieldset>
         </form>

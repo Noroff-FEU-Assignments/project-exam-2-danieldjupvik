@@ -7,23 +7,11 @@ import { useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
 import useAxios from '../../utils/useAxios';
 import LoaderComp from '../../components/LoaderComp';
-
-export const monthNames = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+import { formatDate } from '../../utils/library';
+import { useTranslation } from 'react-i18next';
 
 const Inbox = () => {
+  const { t } = useTranslation();
   const history = useHistory();
   const [inbox, setInbox] = useState([]);
   const https = useAxios();
@@ -69,7 +57,7 @@ const Inbox = () => {
   };
 
   const handleDeleteOrder = (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
+    if (window.confirm(t('deleteItem'))) {
       deleteOrder(id);
     }
   };
@@ -81,10 +69,10 @@ const Inbox = () => {
       <div onClick={navigate} className={'backIconAbsolute'}>
         <BsChevronDoubleLeft fontSize={'35px'} style={{ textAlign: 'left' }} />
       </div>
-      <h1 className='heading'>Inbox</h1>
+      <h1 className='heading'>{t('inbox')}</h1>
       {inbox.length ? (
         <h2 className='subheading' style={{ textAlign: 'center' }}>
-          {inbox.length} messages
+          {inbox.length} {t('messages')}
         </h2>
       ) : null}
       {showLoader ? (
@@ -98,16 +86,6 @@ const Inbox = () => {
               })
               .slice(0, showMore ? 4 : 100000000)
               .map((inboxItem) => {
-                const formatDate = (date) => {
-                  var d = new Date(date);
-
-                  var year = d.getFullYear();
-                  var month = monthNames[d.getMonth()];
-                  var day = d.getDate();
-                  var created = `${day}. ${month} ${year}`;
-                  return created;
-                };
-
                 return (
                   <div key={inboxItem.id} className='inbox-cards'>
                     <div className='inbox-info'>
@@ -117,13 +95,13 @@ const Inbox = () => {
                         className='deleteIcon'
                       />
                       <span className='inbox-name'>
-                        From: <b>{inboxItem.name}</b>
+                        {t('from')}: <b>{inboxItem.name}</b>
                       </span>
                       <span className='inbox-name'>
                         Email: <b>{inboxItem.email}</b>
                       </span>
                       <span className='inbox-created'>
-                        Sent: {formatDate(inboxItem.created_at)}
+                        {t('sent')}: {formatDate(inboxItem.created_at)}
                       </span>
                       <div className='inbox-messageDiv'>
                         <p className='inbox-message'>{inboxItem.message}</p>
@@ -138,7 +116,9 @@ const Inbox = () => {
               className='button hollow__btn viewMore__btn adminViewMore__btn'
               onClick={() => setShowMore(!showMore)}
             >
-              {showMore ? `Show more (${inbox.length - 4})` : 'Show less'}
+              {showMore
+                ? `${t('showMore')} (${inbox.length - 4})`
+                : t('showLess')}
             </div>
           ) : null}
         </>

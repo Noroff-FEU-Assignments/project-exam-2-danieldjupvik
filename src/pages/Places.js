@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import PlacesCards from '../components/PlacesCards';
 import Select from 'react-select';
 import LoaderComp from '../components/LoaderComp';
+import { useTranslation } from 'react-i18next';
 
 const Places = () => {
+  const { t } = useTranslation();
   const [places, setPlaces] = useState([]);
   const [placesDup, setPlacesDup] = useState();
   const [showLoader, setShowLoader] = useState(true);
@@ -27,10 +29,10 @@ const Places = () => {
   }, []);
 
   const options = [
-    { value: 'all', label: 'All places' },
-    { value: 'apartment', label: 'Apartments' },
-    { value: 'cabin', label: 'Cabin' },
-    { value: 'hotel', label: 'Hotels' },
+    { value: 'all', label: t('allTypes') },
+    { value: 'apartment', label: t('apartments') },
+    { value: 'cabin', label: t('cabins') },
+    { value: 'hotel', label: t('hotels') },
   ];
   const [selected, setSelected] = useState(options[0]);
 
@@ -50,7 +52,7 @@ const Places = () => {
 
   return (
     <div className='custom-container'>
-      <h1 className='heading'>Places</h1>
+      <h1 className='heading'>{t('places')}</h1>
       <div className='filterDiv'>
         <Select
           value={selected}

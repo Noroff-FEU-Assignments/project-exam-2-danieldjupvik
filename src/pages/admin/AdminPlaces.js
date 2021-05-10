@@ -9,23 +9,11 @@ import { useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
 import LoaderComp from '../../components/LoaderComp';
 import { capitalize } from '../../utils/library';
-
-export const monthNames = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+import { formatDate } from '../../utils/library';
+import { useTranslation } from 'react-i18next';
 
 const AdminPlaces = () => {
+  const { t } = useTranslation();
   const history = useHistory();
   const [places, setPlaces] = useState([]);
   const https = useAxios();
@@ -71,7 +59,7 @@ const AdminPlaces = () => {
   };
 
   const handleDeletePlace = (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
+    if (window.confirm(t('deleteItem'))) {
       deletePlace(id);
     }
   };
@@ -83,10 +71,10 @@ const AdminPlaces = () => {
       <div onClick={navigate} className={'backIconAbsolute'}>
         <BsChevronDoubleLeft fontSize={'35px'} style={{ textAlign: 'left' }} />
       </div>
-      <h1 className='heading'>Places</h1>
+      <h1 className='heading'>{t('places')}</h1>
       {places.length ? (
         <h2 className='subheading' style={{ textAlign: 'center' }}>
-          Total places {places.length}
+          {t('totalPlaces')} {places.length}
         </h2>
       ) : null}
       {showLoader ? (
@@ -100,15 +88,6 @@ const AdminPlaces = () => {
               })
               .slice(0, showMore ? 4 : 100000000)
               .map((order) => {
-                const formatDate = (date) => {
-                  var d = new Date(date);
-                  var year = d.getFullYear();
-                  var month = monthNames[d.getMonth()];
-                  var day = d.getDate();
-                  var created = `${day}. ${month} ${year}`;
-                  return created;
-                };
-
                 let subRating = 0;
                 order.user_reviews.map(
                   (review) => (subRating += review.rating)
@@ -146,7 +125,7 @@ const AdminPlaces = () => {
                         </span>
                       </div>
                       <span className='adminPlace-created'>
-                        Created: {formatDate(order.created_at)}
+                        {t('created')}: {formatDate(order.created_at)}
                       </span>
                       <div className='adminPlace-description'>
                         <p>{order.description}</p>
@@ -161,7 +140,9 @@ const AdminPlaces = () => {
               className='button hollow__btn viewMore__btn adminViewMore__btn'
               onClick={() => setShowMore(!showMore)}
             >
-              {showMore ? `Show more (${places.length - 4})` : 'Show less'}
+              {showMore
+                ? `${t('showMore')} (${places.length - 4})`
+                : t('showLess')}
             </div>
           ) : null}
         </>

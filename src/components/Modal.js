@@ -5,14 +5,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { baseUrl } from '../utils/api';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 import red from '@material-ui/core/colors/red';
 import { createMuiTheme } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-
 import DateFnsUtils from '@date-io/date-fns';
-
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 const defaultMaterialTheme = createMuiTheme({
@@ -22,6 +21,7 @@ const defaultMaterialTheme = createMuiTheme({
 });
 
 const OrderModal = (props) => {
+  const { t } = useTranslation();
   const [submitting, setSubmitting] = useState(false);
   const [orderError, setOrderError] = useState(null);
   const [errorDate, setErrorDate] = useState(false);
@@ -80,6 +80,7 @@ const OrderModal = (props) => {
       size='lg'
       aria-labelledby='contained-modal-title-vcenter'
       centered
+      animation
     >
       <Modal.Header closeButton>
         <Modal.Title id='contained-modal-title-vcenter'>
@@ -107,13 +108,13 @@ const OrderModal = (props) => {
           <fieldset disabled={submitting} className='fieldset'>
             <div className='groupForm'>
               <label htmlFor='name' className='label'>
-                Full name
+                {t('fullName')}
               </label>
               <input
                 type='text'
                 id='name'
                 name='name'
-                placeholder='Full name'
+                placeholder={t('fullName')}
                 ref={register}
                 className='inputElem'
               />
@@ -124,7 +125,7 @@ const OrderModal = (props) => {
 
             <div className='groupForm'>
               <label htmlFor='guests' className='label'>
-                Guests
+                {t('guests')}
               </label>
               <input
                 type='number'
@@ -141,7 +142,7 @@ const OrderModal = (props) => {
 
             <div className='groupForm'>
               <label htmlFor='startDate' className='label'>
-                Check In
+                {t('checkIn')}
               </label>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ThemeProvider theme={defaultMaterialTheme}>
@@ -166,7 +167,7 @@ const OrderModal = (props) => {
 
             <div className='groupForm'>
               <label htmlFor='endDate' className='label'>
-                Check Out
+                {t('checkOut')}
               </label>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ThemeProvider theme={defaultMaterialTheme}>
@@ -194,14 +195,14 @@ const OrderModal = (props) => {
       <Modal.Footer>
         <div className='modalBtnDiv'>
           <button onClick={props.onHide} className='closeBtn button'>
-            Close
+            {t('close')}
           </button>
           <button
             type='submit'
             form='order-form'
-            className='sendOrderBtn button'
+            className='sendOrderBtn button solid__btn'
           >
-            {submitting ? 'Sending order...' : 'Send order'}
+            {submitting ? t('sendingOrder') : t('sendOrder')}
           </button>
         </div>
       </Modal.Footer>

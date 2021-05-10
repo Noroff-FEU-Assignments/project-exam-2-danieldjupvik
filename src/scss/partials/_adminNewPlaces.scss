@@ -1,0 +1,22 @@
+.adminNewPlacesForm {
+  max-width: 350px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+@media only screen and (min-width: $max-width) {
+  .adminNewPlacesForm {
+    max-width: 650px;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+  .formSectionDiv {
+    display: flex;
+  }
+  .formSection {
+    width: 50%;
+  }
+  .formSection-1 {
+    margin-right: 30px;
+  }
+}

@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoaderComp from '../components/LoaderComp';
 import { formatDate } from '../utils/library';
+import { useTranslation } from 'react-i18next';
 
 const Tooltip = styled('div')`
   position: absolute;
@@ -70,15 +71,17 @@ function reducer(state, [type, payload]) {
 }
 
 const Place = () => {
+  const { t } = useTranslation();
   const [details, setDetails] = useState([]);
   const [vote_average, setVote_average] = useState();
   const [textToCopy, setTextToCopy] = useState();
   const [modalShow, setModalShow] = useState(false);
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [reRender, setReRender] = useState(true);
   const [showMoreReviews, setShowMoreReviews] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const { id } = useParams();
   const history = useHistory();
 
@@ -131,29 +134,34 @@ const Place = () => {
   const onSubmit = async (data) => {
     console.log(data);
 
-    const newReviews = [
-      ...reviews,
-      {
-        name: data.name,
-        rating: rating,
-        description: data.description,
-        created: new Date(),
-      },
-    ];
+    if (rating <= 0) {
+      setShowErrorMessage(true);
+    } else {
+      setShowErrorMessage(false);
+      const newReviews = [
+        ...reviews,
+        {
+          name: data.name,
+          rating: rating,
+          description: data.description,
+          created: new Date(),
+        },
+      ];
 
-    try {
-      const response = await axios.put(`${baseUrl}${placesUrl}/${id}`, {
-        user_reviews: newReviews,
-      });
-      console.log(response);
-      if (response.status === 200) {
-        setReRender(!reRender);
-        setRating(1);
+      try {
+        const response = await axios.put(`${baseUrl}${placesUrl}/${id}`, {
+          user_reviews: newReviews,
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setReRender(!reRender);
+          setRating(0);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        reset();
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      reset();
     }
   };
 
@@ -228,7 +236,7 @@ const Place = () => {
                               placement={placement}
                               style={arrowProps.style}
                             />
-                            <Body>URL copied to clipboard</Body>
+                            <Body>{t('urlCopied')}</Body>
                           </Tooltip>
                         )}
                       </Overlay>
@@ -244,9 +252,9 @@ const Place = () => {
                   </div>
                   <button
                     onClick={() => setModalShow(true)}
-                    className='orderBtn button'
+                    className='orderBtn button solid__btn'
                   >
-                    Order
+                    {t('order')}
                   </button>
                   <OrderModal
                     animation={false}
@@ -265,7 +273,7 @@ const Place = () => {
               {details.user_reviews.length ? (
                 <>
                   <div className='review-div review-list'>
-                    <h2 className='subheading'>User Reviews</h2>
+                    <h2 className='subheading'>{t('userReviews')}</h2>
                     {details.user_reviews
                       ?.sort(function (a, b) {
                         return b.id - a.id;
@@ -304,8 +312,10 @@ const Place = () => {
                         onClick={() => setShowMoreReviews(!showMoreReviews)}
                       >
                         {showMoreReviews
-                          ? `Show more (${details.user_reviews?.length - 4})`
-                          : 'Show less'}
+                          ? `${t('showMore')} (${
+                              details.user_reviews?.length - 4
+                            })`
+                          : t('showLess')}
                       </div>
                     ) : null}
                   </div>
@@ -313,14 +323,14 @@ const Place = () => {
                 </>
               ) : null}
               <div className='review-div leaveReview-div'>
-                <h3 className='subheading'>Leave a review</h3>
+                <h3 className='subheading'>{t('leaveReview')}</h3>
                 <form
                   onSubmit={handleSubmit(onSubmit)}
                   style={{ display: 'flex', flexDirection: 'column' }}
                 >
                   <fieldset>
                     <div className='groupForm ratingGroupFrom'>
-                      <label className='label'>Rating</label>
+                      <label className='label'>{t('rating')}</label>
                       <StarRatings
                         rating={rating}
                         starRatedColor='#ff4f4f'
@@ -332,10 +342,13 @@ const Place = () => {
                         svgIconPath='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'
                         svgIconViewBox='0 0 24 24'
                       />
+                      {showErrorMessage === true ? (
+                        <p className='errorLabel'>Please choose a rating</p>
+                      ) : null}
                     </div>
                     <div className='groupForm'>
                       <label htmlFor='name' className='label'>
-                        Name
+                        {t('name')}
                       </label>
                       <input
                         name='name'
@@ -343,7 +356,7 @@ const Place = () => {
                         ref={register}
                         type='text'
                         className='inputElem'
-                        defaultValue='Anonymous'
+                        placeholder={t('nameHere')}
                       />
 
                       {errors.name && (
@@ -353,7 +366,7 @@ const Place = () => {
 
                     <div className='groupForm'>
                       <label htmlFor='description' className='label'>
-                        Review text
+                        {t('reviewText')}
                       </label>
                       <textarea
                         rows='4'
@@ -361,7 +374,7 @@ const Place = () => {
                         name='description'
                         ref={register}
                         className='inputElem'
-                        placeholder='Review text here'
+                        placeholder={t('reviewTextHere')}
                       />
                       {errors.description && (
                         <p className='errorLabel'>
@@ -369,8 +382,11 @@ const Place = () => {
                         </p>
                       )}
                     </div>
-                    <button type='submit' className='button publish__btn'>
-                      Publish
+                    <button
+                      type='submit'
+                      className='button publish__btn solid__btn'
+                    >
+                      {t('publish')}
                     </button>
                   </fieldset>
                 </form>

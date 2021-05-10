@@ -7,8 +7,10 @@ import { baseUrl, placesUrl } from '../utils/api';
 import { Link, useHistory } from 'react-router-dom';
 import PopularCards from '../components/PopularCards';
 import LoaderComp from '../components/LoaderComp';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
+  const { t } = useTranslation();
   const [places, setPlaces] = useState([]);
   const [selected, setSelected] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
@@ -41,7 +43,7 @@ const Home = () => {
       <div className='hero'>
         <div className=' hero__div custom-container'>
           <div>
-            <h1 className='hero__heading'>Find your next destination</h1>
+            <h1 className='hero__heading'>{t('heroText')}</h1>
           </div>
           <div>
             <Typeahead
@@ -53,7 +55,7 @@ const Home = () => {
               id={'search-places'}
               emptyLabel={'No places with that name...'}
               clearButton
-              placeholder={'Search places'}
+              placeholder={t('searchPlaces')}
               onChange={(result) => {
                 navigate(result[0].id);
                 setSelected(result);
@@ -82,7 +84,7 @@ const Home = () => {
             </Typeahead>
           </div>
           <div className='button hero__btn' onClick={executeScroll}>
-            Most popular
+            {t('mostPopular')}
           </div>
         </div>
       </div>
@@ -92,26 +94,26 @@ const Home = () => {
             className='heading'
             style={{ paddingTop: '48px', marginTop: '0' }}
           >
-            Our most popular places
+            {t('mostPopularText')}
           </h2>
           {showLoader ? (
             <LoaderComp />
           ) : (
             <div className='most-popularDiv'>
               <div className='category'>
-                <h3 className='subheading'>Cabins</h3>
+                <h3 className='subheading'>{t('cabins')}</h3>
                 <div className='cards-div'>
                   <PopularCards places={places} type={'cabin'} />
                 </div>
               </div>
               <div className='category'>
-                <h3 className='subheading'>Apartments</h3>
+                <h3 className='subheading'>{t('apartments')}</h3>
                 <div className='cards-div'>
                   <PopularCards places={places} type={'apartment'} />
                 </div>
               </div>
               <div className='category'>
-                <h3 className='subheading'>Hotels</h3>
+                <h3 className='subheading'>{t('hotels')}</h3>
                 <div className='cards-div'>
                   <PopularCards places={places} type={'hotel'} />
                 </div>
@@ -120,8 +122,8 @@ const Home = () => {
           )}
         </div>
         <div>
-          <Link to='/places' className='button'>
-            View more
+          <Link to='/places' className='button solid__btn'>
+            {t('viewPlaces')}
           </Link>
         </div>
       </div>

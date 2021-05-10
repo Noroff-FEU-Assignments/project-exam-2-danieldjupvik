@@ -6,14 +6,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { baseUrl, authUrl } from '../utils/api';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const { t } = useTranslation();
   const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(null);
   const [auth, setAuth] = useContext(AuthContext);
   const history = useHistory();
 
-  const { register, handleSubmit, errors, reset } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   });
 
@@ -44,7 +46,7 @@ const Login = () => {
 
   return (
     <div className='custom-container'>
-      <h1 className='heading'>Sign In</h1>
+      <h1 className='heading'>{t('login')}</h1>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -59,19 +61,19 @@ const Login = () => {
               paddingBottom: '10px',
             }}
           >
-            Wrong username or password.
+            {t('wrongPassword')}
           </p>
         )}
         <fieldset disabled={submitting} className='fieldset'>
           <div className='groupForm'>
             <label htmlFor='identifier' className='label'>
-              Username or Email
+              {t('usernameOrEmail')}
             </label>
             <input
               type='text'
               id='identifier'
               name='identifier'
-              placeholder='Username or email'
+              placeholder={t('usernameOrEmail')}
               ref={register}
               className='inputElem'
             />
@@ -82,13 +84,13 @@ const Login = () => {
 
           <div className='groupForm'>
             <label htmlFor='password' className='label'>
-              Password
+              {t('password')}
             </label>
             <input
               type='password'
               id='password'
               name='password'
-              placeholder='Password'
+              placeholder={t('password')}
               ref={register}
               className='inputElem'
             />
@@ -96,8 +98,8 @@ const Login = () => {
               <p className='errorLabel'>{errors.password.message}</p>
             )}
           </div>
-          <button type='submit' className='button loginPage__btn'>
-            {submitting ? 'Signing in...' : 'Sign in now'}
+          <button type='submit' className='button loginPage__btn solid__btn'>
+            {submitting ? t('signingIn') : t('signInNow')}
           </button>
         </fieldset>
       </form>

@@ -1,11 +1,18 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logoWhite from '../assets/logo/Holidaze-logo-white.png';
 import AuthContext from '../context/AuthContext';
+import { FaLanguage } from 'react-icons/fa';
+import i18n from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const Navigation = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [auth, setAuth] = useContext(AuthContext);
+  const [showMenu, setShowMenu] = useState(false);
+  const [nbActive, setNbActive] = useState(false);
+  const [enActive, setEnActive] = useState(false);
 
   const openHamburgerMenu = () => {
     var w = window.innerWidth;
@@ -14,6 +21,26 @@ const Navigation = () => {
 
   const logout = () => {
     setAuth(null);
+  };
+
+  const activeLang = localStorage.getItem('i18nextLng');
+  useEffect(() => {
+    if (activeLang === 'nb' || 'no') {
+      setEnActive(false);
+      setNbActive(true);
+    }
+
+    if (activeLang === 'en') {
+      setNbActive(false);
+      setEnActive(true);
+    }
+  }, [activeLang]);
+
+  console.log('engActive' + enActive);
+  console.log('noActive' + nbActive);
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
 
   return (
@@ -50,7 +77,7 @@ const Navigation = () => {
               className='navbar-navigation__links'
               to='/'
             >
-              Home
+              {t('home')}
             </NavLink>
             <NavLink
               activeClassName='customActive'
@@ -58,7 +85,7 @@ const Navigation = () => {
               className='navbar-navigation__links'
               to='/places'
             >
-              Places
+              {t('places')}
             </NavLink>
             <NavLink
               activeClassName='customActive'
@@ -66,7 +93,7 @@ const Navigation = () => {
               className='navbar-navigation__links'
               to='/contact'
             >
-              Contact
+              {t('contact')}
             </NavLink>
             {auth ? (
               <NavLink
@@ -75,26 +102,64 @@ const Navigation = () => {
                 className='navbar-navigation__links'
                 to='/dashboard'
               >
-                Admin
+                {t('admin')}
               </NavLink>
             ) : null}
             <div className='nav-buttons'>
               {auth ? (
-                <div
-                  onClick={(openHamburgerMenu, logout)}
-                  className='login__btn button'
-                >
-                  Logout
-                </div>
+                <>
+                  <div
+                    onClick={(openHamburgerMenu, logout)}
+                    className='login__btn button'
+                  >
+                    {t('logout')}
+                  </div>
+                </>
               ) : (
                 <Link
                   onClick={openHamburgerMenu}
                   to='/login'
                   className='login__btn button'
                 >
-                  Sign In
+                  {t('login')}
                 </Link>
               )}
+              <div
+                className='changeLanguage__btn'
+                onClick={() => setShowMenu(!showMenu)}
+              >
+                <FaLanguage fontSize={'40px'} color={'white'} />
+              </div>
+              {showMenu ? (
+                <div className='languageDropDown'>
+                  <div
+                    className={
+                      nbActive
+                        ? 'languageDropDown-item activeLanguage'
+                        : 'languageDropDown-item'
+                    }
+                    onClick={() => {
+                      changeLanguage('nb');
+                      setShowMenu(false);
+                    }}
+                  >
+                    Norwegian
+                  </div>
+                  <div
+                    className={
+                      enActive
+                        ? 'languageDropDown-item activeLanguage'
+                        : 'languageDropDown-item'
+                    }
+                    onClick={() => {
+                      changeLanguage('en');
+                      setShowMenu(false);
+                    }}
+                  >
+                    English
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

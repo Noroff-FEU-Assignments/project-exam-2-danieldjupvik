@@ -8,23 +8,10 @@ import { useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
 import LoaderComp from '../../components/LoaderComp';
 import { formatDate } from '../../utils/library';
-
-export const monthNames = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+import { useTranslation } from 'react-i18next';
 
 const Orders = () => {
+  const { t } = useTranslation();
   const history = useHistory();
   const [orders, setOrders] = useState([]);
   const https = useAxios();
@@ -73,7 +60,7 @@ const Orders = () => {
   };
 
   const handleDeleteOrder = (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
+    if (window.confirm(t('deleteItem'))) {
       deleteOrder(id);
     }
   };
@@ -83,10 +70,10 @@ const Orders = () => {
       <div onClick={navigate} className={'backIconAbsolute'}>
         <BsChevronDoubleLeft fontSize={'35px'} style={{ textAlign: 'left' }} />
       </div>
-      <h1 className='heading'>Orders</h1>
+      <h1 className='heading'>{t('orders')}</h1>
       {orders.length ? (
         <h2 className='subheading' style={{ textAlign: 'center' }}>
-          Total orders {orders.length}
+          {t('totalOrder')} {orders.length}
         </h2>
       ) : null}
       {showLoader ? (
@@ -116,21 +103,25 @@ const Orders = () => {
                         className='deleteIcon'
                       />
                       <span className='order-title'>{order.place_name}</span>
-                      <span className='order-name'>Name: {order.name}</span>
-                      <span className='order-guests'>
-                        Guests: {order.guests}
+                      <span className='order-name'>
+                        {t('name')}: {order.name}
                       </span>
-                      <span className='order-guests'>Order ID: {order.id}</span>
+                      <span className='order-guests'>
+                        {t('guests')}: {order.guests}
+                      </span>
+                      <span className='order-guests'>
+                        {t('order')} ID: {order.id}
+                      </span>
                       <span className='order-created'>
-                        Ordered: {formatDate(order.created_at)}
+                        {t('ordered')}: {formatDate(order.created_at)}
                       </span>
 
                       <div className='order-dateDiv'>
                         <span className='order-date'>
-                          Check In - <b>{formatDate(order.check_in)}</b>
+                          {t('checkIn')} - <b>{formatDate(order.check_in)}</b>
                         </span>
                         <span className='order-date'>
-                          Check Out - <b>{formatDate(order.check_out)}</b>
+                          {t('checkOut')} - <b>{formatDate(order.check_out)}</b>
                         </span>
                       </div>
                     </div>
@@ -143,7 +134,9 @@ const Orders = () => {
               className='button hollow__btn viewMore__btn adminViewMore__btn'
               onClick={() => setShowMore(!showMore)}
             >
-              {showMore ? `Show more (${orders.length - 4})` : 'Show less'}
+              {showMore
+                ? `${t('showMore')} (${orders.length - 4})`
+                : t('showLess')}
             </div>
           ) : null}
         </>

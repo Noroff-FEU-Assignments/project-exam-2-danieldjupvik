@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { baseUrl } from '../utils/api';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [submitting, setSubmitting] = useState(false);
   const [contactError, setContactError] = useState(null);
 
@@ -30,7 +32,7 @@ const Contact = () => {
 
   return (
     <div className='custom-container'>
-      <h1 className='heading'>Contact</h1>
+      <h1 className='heading'>{t('contact')}</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         style={{ maxWidth: '350px', margin: '0 auto', marginTop: '30px' }}
@@ -50,13 +52,13 @@ const Contact = () => {
         <fieldset disabled={submitting} className='fieldset'>
           <div className='groupForm'>
             <label htmlFor='name' className='label'>
-              Full Name
+              {t('fullName')}
             </label>
             <input
               type='text'
               name='name'
               id='name'
-              placeholder='Full name'
+              placeholder={t('fullName')}
               ref={register}
               className='inputElem'
             />
@@ -81,13 +83,13 @@ const Contact = () => {
           </div>
           <div className='groupForm'>
             <label htmlFor='message' className='label'>
-              Message
+              {t('message')}
             </label>
             <textarea
               rows='5'
               name='message'
               id='message'
-              placeholder='Your message here'
+              placeholder={t('messageHere')}
               ref={register}
               className='inputElem'
             />
@@ -95,7 +97,7 @@ const Contact = () => {
               <p className='errorLabel'>{errors.message.message}</p>
             )}
           </div>
-          <button type='submit' className='button contact__btn'>
+          <button type='submit' className='button contact__btn solid__btn'>
             {submitting ? 'Sending...' : 'Send'}
           </button>
         </fieldset>

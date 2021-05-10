@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import footerLogo from '../assets/logo/Holidaze-logo-black.png';
+import { useTranslation } from 'react-i18next';
+
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className='footer clearfix'>
       <div className='footerDiv'>
@@ -11,9 +15,7 @@ const Footer = () => {
             alt='holidaze-footer-logo'
           />
         </Link>
-        <span className='footer-copyright'>
-          Copyright 2021 © Holidaze All rights Reserved.
-        </span>
+        <span className='footer-copyright'>{t('copyright')}</span>
       </div>
     </footer>
   );

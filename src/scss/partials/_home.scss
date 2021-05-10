@@ -77,4 +77,14 @@
   .popular-cards:nth-child(4n + 1) {
     margin-left: 0px;
   }
+  .popular-cards:hover {
+    transition: 0.4s;
+  }
+  .popular-cards:hover .popular-image {
+    filter: opacity(50%);
+    transition: 0.4s;
+  }
+  .popular-cards .popular-image {
+    transition: 0.4s;
+  }
 }

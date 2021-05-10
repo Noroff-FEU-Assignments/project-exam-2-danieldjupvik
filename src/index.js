@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import App from './App';
 import './scss/style.scss';
+import './translations/i18n';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

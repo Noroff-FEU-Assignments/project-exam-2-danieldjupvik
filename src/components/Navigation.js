@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logoWhite from '../assets/logo/Holidaze-logo-white.png';
 import AuthContext from '../context/AuthContext';
@@ -36,12 +36,28 @@ const Navigation = () => {
     }
   }, [activeLang]);
 
-  console.log('engActive' + enActive);
-  console.log('noActive' + nbActive);
-
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
+
+  const node = useRef();
+
+  const handleClick = (e) => {
+    if (node.current?.contains(e.target)) {
+      // inside click
+      return;
+    }
+    // outside click
+    setShowMenu(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, []);
 
   return (
     <nav>
@@ -125,41 +141,42 @@ const Navigation = () => {
                 </Link>
               )}
               <div
+                ref={node}
                 className='changeLanguage__btn'
                 onClick={() => setShowMenu(!showMenu)}
               >
                 <FaLanguage fontSize={'40px'} color={'white'} />
+                {showMenu ? (
+                  <div className='languageDropDown'>
+                    <div
+                      className={
+                        nbActive
+                          ? 'languageDropDown-item activeLanguage'
+                          : 'languageDropDown-item'
+                      }
+                      onClick={() => {
+                        changeLanguage('nb');
+                        setShowMenu(false);
+                      }}
+                    >
+                      {t('norwegian')}
+                    </div>
+                    <div
+                      className={
+                        enActive
+                          ? 'languageDropDown-item activeLanguage'
+                          : 'languageDropDown-item'
+                      }
+                      onClick={() => {
+                        changeLanguage('en');
+                        setShowMenu(false);
+                      }}
+                    >
+                      {t('english')}
+                    </div>
+                  </div>
+                ) : null}
               </div>
-              {showMenu ? (
-                <div className='languageDropDown'>
-                  <div
-                    className={
-                      nbActive
-                        ? 'languageDropDown-item activeLanguage'
-                        : 'languageDropDown-item'
-                    }
-                    onClick={() => {
-                      changeLanguage('nb');
-                      setShowMenu(false);
-                    }}
-                  >
-                    Norwegian
-                  </div>
-                  <div
-                    className={
-                      enActive
-                        ? 'languageDropDown-item activeLanguage'
-                        : 'languageDropDown-item'
-                    }
-                    onClick={() => {
-                      changeLanguage('en');
-                      setShowMenu(false);
-                    }}
-                  >
-                    English
-                  </div>
-                </div>
-              ) : null}
             </div>
           </div>
         </div>

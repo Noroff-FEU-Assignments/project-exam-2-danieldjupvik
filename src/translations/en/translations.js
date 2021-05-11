@@ -64,4 +64,8 @@ export const TRANSLATIONS_EN = {
   signingIn: 'Signing in...',
   wrongPassword: 'Invalid username or password',
   copyright: 'Copyright 2021 © Holidaze All rights Reserved.',
+  norwegian: 'Norwegian (Norsk)',
+  english: 'English (Engelsk)',
+  noResult: 'No result...',
+  searchOrder: 'Search orders (place and name)',
 };

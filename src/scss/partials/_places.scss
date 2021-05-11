@@ -63,19 +63,6 @@
 }
 
 @media only screen and (min-width: $max-width) {
-  .bestsellers .products__card {
-    flex-basis: unset;
-    margin: 0px 15px 30px 15px !important;
-    width: 200px;
-  }
-
-  .bestsellers {
-    margin-top: $global-spacing * 4;
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
-  }
-
   .filterDiv {
     max-width: 150px;
     margin-left: auto;

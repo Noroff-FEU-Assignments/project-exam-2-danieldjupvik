@@ -73,6 +73,7 @@
   .cards-div {
     overflow-x: unset;
     flex-wrap: wrap;
+    max-width: 690px;
   }
   .popular-cards:nth-child(4n + 1) {
     margin-left: 0px;

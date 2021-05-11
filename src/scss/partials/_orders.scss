@@ -1,7 +1,6 @@
 .backIconAbsolute {
   display: inline-block;
   position: absolute;
-  // margin: 20px 0;
   cursor: pointer;
 }
 .order-div {
@@ -35,8 +34,6 @@
   padding: 14px;
   display: flex;
   width: 100%;
-  // width: 150%;
-  // flex-wrap: wrap;
   flex-direction: column;
   position: relative;
 }
@@ -47,10 +44,7 @@
   font-family: $heading;
   margin-bottom: 15px;
 }
-.order-name {
-}
-.order-guests {
-}
+
 .order-created {
   margin-bottom: 15px;
 }
@@ -67,7 +61,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: unset;
     margin-top: $global-spacing * 2;
     margin-bottom: $global-spacing * 2;
     width: 100%;

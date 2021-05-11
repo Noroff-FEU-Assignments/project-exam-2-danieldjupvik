@@ -64,4 +64,8 @@ export const TRANSLATIONS_NB = {
   signInNow: 'Logg inn nå',
   wrongPassword: 'Ugyldig brukernavn eller passord',
   copyright: 'Copyright 2021 © Holidaze Alle rettigheter forbeholdt.',
+  norwegian: 'Norsk (Norwegian)',
+  english: 'Engelsk (English) ',
+  noResult: 'Ingen resultat...',
+  searchOrder: 'Søk i bestillinger (sted og navn)',
 };

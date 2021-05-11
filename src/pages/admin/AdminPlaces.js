@@ -1,7 +1,7 @@
 import { BsChevronDoubleLeft } from 'react-icons/bs';
 import { MdFavorite } from 'react-icons/md';
 import { TiDelete } from 'react-icons/ti';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { baseUrl, placesUrl } from '../../utils/api';
 import useAxios from '../../utils/useAxios';
@@ -16,11 +16,13 @@ const AdminPlaces = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const [places, setPlaces] = useState([]);
+  const [sortPlaces, setSortPlaces] = useState([]);
   const https = useAxios();
   const [updatePlaces, setUpdatePlaces] = useState(false);
   const [showMore, setShowMore] = useState(true);
   const [auth] = useContext(AuthContext);
   const [showLoader, setShowLoader] = useState(true);
+  const [searchError, setSearchError] = useState(false);
 
   function navigate() {
     history.goBack();
@@ -38,6 +40,7 @@ const AdminPlaces = () => {
       try {
         const response = await https.get(`${baseUrl}${placesUrl}`);
         setPlaces(response.data);
+        setSortPlaces(response.data);
       } catch (e) {
         console.log(e);
       } finally {
@@ -64,7 +67,21 @@ const AdminPlaces = () => {
     }
   };
 
-  console.log(places);
+  const searchPlaces = (e) => {
+    console.log(e.target.value);
+    setSearchError(false);
+    if (e.target.value.length >= 1) {
+      const newArr = sortPlaces.filter((places) =>
+        places.name.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+      setPlaces(newArr);
+      if (newArr.length <= 0) {
+        setSearchError(true);
+      }
+    } else {
+      setPlaces(sortPlaces);
+    }
+  };
 
   return (
     <div className='custom-container'>
@@ -72,11 +89,23 @@ const AdminPlaces = () => {
         <BsChevronDoubleLeft fontSize={'35px'} style={{ textAlign: 'left' }} />
       </div>
       <h1 className='heading'>{t('places')}</h1>
-      {places.length ? (
+      {places ? (
         <h2 className='subheading' style={{ textAlign: 'center' }}>
           {t('totalPlaces')} {places.length}
         </h2>
       ) : null}
+      <div className='searchPlaces-div'>
+        <input
+          type='search'
+          name='searchPlaces'
+          placeholder={t('searchPlaces')}
+          className='inputElem'
+          onChange={(e) => searchPlaces(e)}
+        />
+        {searchError ? (
+          <div className='searchError'>{t('noResult')}</div>
+        ) : null}
+      </div>
       {showLoader ? (
         <LoaderComp />
       ) : (
@@ -96,11 +125,13 @@ const AdminPlaces = () => {
                 return (
                   <div key={order.id} className='adminPlace-cards'>
                     <div className='adminPlace-imageDiv'>
-                      <img
-                        className='adminPlace-image'
-                        src={order.image_url}
-                        alt={order.place_name}
-                      />
+                      <Link to={`/places/place/${order.id}`}>
+                        <img
+                          className='adminPlace-image'
+                          src={order.image_url}
+                          alt={order.place_name}
+                        />
+                      </Link>
                     </div>
                     <div className='adminPlace-info'>
                       <TiDelete

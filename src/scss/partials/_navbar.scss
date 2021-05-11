@@ -77,8 +77,8 @@
   background-color: white;
   width: auto;
   position: absolute;
-  top: 105%;
-  transform: translate(-0%, -0%);
+  top: 67%;
+  transform: translate(-40%, -0%);
   border-radius: 10px;
   padding: $global-spacing/1.2;
   box-shadow: $cards-boxShadow;
@@ -88,6 +88,7 @@
   padding: 10px;
   border-radius: 10px;
   margin: 5px;
+  width: 155px;
 }
 
 .languageDropDown-item:hover {
@@ -168,6 +169,7 @@
   }
 
   .languageDropDown {
+    top: 105%;
     right: -5px;
     transform: translate(-5%, -0%);
   }

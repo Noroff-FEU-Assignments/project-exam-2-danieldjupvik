@@ -67,5 +67,8 @@ export const TRANSLATIONS_NB = {
   norwegian: 'Norsk (Norwegian)',
   english: 'Engelsk (English) ',
   noResult: 'Ingen resultat...',
-  searchOrder: 'Søk i bestillinger (sted og navn)',
+  searchOrder: 'Søk i bestillinger (sted, navn og ID)',
+  pageNotFound: 'Side ikke funnet',
+  orderError: 'Noe gikk galt...',
+  confirmOrder: 'Bestillingen ble sendt',
 };

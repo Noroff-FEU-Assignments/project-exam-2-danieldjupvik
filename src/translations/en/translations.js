@@ -67,5 +67,8 @@ export const TRANSLATIONS_EN = {
   norwegian: 'Norwegian (Norsk)',
   english: 'English (Engelsk)',
   noResult: 'No result...',
-  searchOrder: 'Search orders (place and name)',
+  searchOrder: 'Search orders (place, name and order ID)',
+  pageNotFound: 'Page not found',
+  orderError: 'Something went wrong...',
+  confirmOrder: 'Order successfully sent',
 };

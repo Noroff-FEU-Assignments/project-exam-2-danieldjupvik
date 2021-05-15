@@ -25,19 +25,19 @@ const OrderModal = (props) => {
   const [submitting, setSubmitting] = useState(false);
   const [orderError, setOrderError] = useState(null);
   const [errorDate, setErrorDate] = useState(false);
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
 
   const [startDate, setStartDate] = useState(new Date());
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
   const [endDate, setEndDate] = useState(tomorrow);
-  // console.log(startDate);
-  // console.log(endDate);
 
   const setTomorrowDate = (date) => {
     const today = date;
     const tomorrow = new Date(today);
-    setEndDate(tomorrow.setDate(tomorrow.getDate() + 1));
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    setEndDate(tomorrow);
   };
 
   const { register, handleSubmit, errors } = useForm({
@@ -61,7 +61,11 @@ const OrderModal = (props) => {
         });
         console.log(response);
         if (response.status) {
-          props.onHide();
+          setOrderConfirmed(true);
+          setTimeout(() => {
+            props.onHide();
+            setOrderConfirmed(false);
+          }, 3500);
         }
       } catch (error) {
         console.log(error);
@@ -102,9 +106,21 @@ const OrderModal = (props) => {
                 paddingBottom: '10px',
               }}
             >
-              Something went wrong...
+              {t('orderError')}
             </p>
           )}
+          {orderConfirmed ? (
+            <p
+              style={{
+                width: 'fit-content',
+                margin: '0 auto',
+                borderBottom: '1px solid green',
+                paddingBottom: '10px',
+              }}
+            >
+              {t('confirmOrder')}
+            </p>
+          ) : null}
           <fieldset disabled={submitting} className='fieldset'>
             <div className='groupForm'>
               <label htmlFor='name' className='label'>

@@ -72,11 +72,15 @@ const Orders = () => {
     console.log(e.target.value);
     setSearchError(false);
     if (e.target.value.length >= 1) {
-      const newArr = sortOrders.filter(
-        (places) =>
+      const newArr = sortOrders.filter((places) => {
+        return (
           places.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          places.place_name.toLowerCase().includes(e.target.value.toLowerCase())
-      );
+          places.place_name
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          places.id === parseInt(e.target.value)
+        );
+      });
       setOrders(newArr);
       if (newArr.length <= 0) {
         setSearchError(true);

@@ -20,7 +20,6 @@ const Contact = () => {
 
     try {
       const response = await axios.post(`${baseUrl}/messages`, data);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
       setContactError(error.toString());

@@ -10,6 +10,7 @@ import { createPlaceSchema } from '../../utils/schemas';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
+import { capitalize } from '../../utils/library';
 
 const NewPlace = () => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ const NewPlace = () => {
   const [submitting, setSubmitting] = useState(false);
   const [createError, setCreateError] = useState(null);
   const [mostPopular, setMostPopular] = useState(false);
+  const [createPlaceConfirmed, setCreatePlaceConfirmed] = useState(false);
 
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(createPlaceSchema),
@@ -51,8 +53,6 @@ const NewPlace = () => {
   const onSubmit = async (data) => {
     setSubmitting(true);
     setCreateError(null);
-    console.log(data);
-
     try {
       const response = await https.post(`${baseUrl}/places`, {
         name: data.name,
@@ -62,14 +62,19 @@ const NewPlace = () => {
         description: data.description,
         most_popular: mostPopular,
       });
-      console.log(response.data);
+      if (response.status) {
+        setCreatePlaceConfirmed(true);
+        reset();
+        setMostPopular(false);
+        setTimeout(() => {
+          setCreatePlaceConfirmed(false);
+        }, 3500);
+      }
     } catch (error) {
       console.log(error);
       setCreateError(error.toString());
     } finally {
       setSubmitting(false);
-      reset();
-      setMostPopular(false);
     }
   };
 
@@ -94,9 +99,22 @@ const NewPlace = () => {
                 paddingBottom: '10px',
               }}
             >
-              Something went wrong when creating place..
+              {t('createPlaceError')}
             </p>
           )}
+
+          {createPlaceConfirmed ? (
+            <p
+              style={{
+                width: 'fit-content',
+                margin: '0 auto',
+                borderBottom: '1px solid green',
+                paddingBottom: '10px',
+              }}
+            >
+              {t('confirmCreatePlace')}
+            </p>
+          ) : null}
           <fieldset disabled={submitting} className='fieldset'>
             <div className='formSectionDiv'>
               <div className='formSection formSection-1'>
@@ -149,7 +167,7 @@ const NewPlace = () => {
                     {config.type?.map((type) => {
                       return (
                         <option key={type.id} value={type.type}>
-                          {type.type}
+                          {capitalize(type.type)}
                         </option>
                       );
                     })}
@@ -164,21 +182,16 @@ const NewPlace = () => {
                   <label htmlFor='price' className='label'>
                     {t('price')}
                   </label>
-                  <select
+                  <input
+                    type='number'
                     name='price'
                     id='price'
+                    placeholder={t('choosePrice')}
                     ref={register}
                     className='inputElem'
-                  >
-                    <option value=''>{t('choosePrice')}</option>
-                    {config.price?.map((price) => {
-                      return (
-                        <option key={price.id} value={price.price}>
-                          {price.price},-
-                        </option>
-                      );
-                    })}
-                  </select>
+                    pattern='[0-9]*'
+                    inputMode='numeric'
+                  />
                   {errors.price && (
                     <p className='errorLabel'>{errors.price.message}</p>
                   )}

@@ -13,7 +13,6 @@ const Places = () => {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    // setLoader(true);
     const getPlaces = async () => {
       try {
         const response = await axios.get(`${baseUrl}${placesUrl}`);

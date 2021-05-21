@@ -26,7 +26,6 @@ const OrderModal = (props) => {
   const [orderError, setOrderError] = useState(null);
   const [errorDate, setErrorDate] = useState(false);
   const [orderConfirmed, setOrderConfirmed] = useState(false);
-
   const [startDate, setStartDate] = useState(new Date());
   const today = new Date();
   const tomorrow = new Date(today);
@@ -48,7 +47,6 @@ const OrderModal = (props) => {
     setOrderError(null);
     if (startDate && endDate) {
       setSubmitting(true);
-      console.log(data);
       try {
         const response = await axios.post(`${baseUrl}/orders`, {
           name: data.name,
@@ -59,7 +57,6 @@ const OrderModal = (props) => {
           image_url: props.image_url,
           place_name: props.name,
         });
-        console.log(response);
         if (response.status) {
           setOrderConfirmed(true);
           setTimeout(() => {
@@ -79,6 +76,9 @@ const OrderModal = (props) => {
   };
 
   return (
+    // Will get findDOMNode error because the component doesn't use REF.
+    // There isn't anything I can do to prevent fix it and the warning doesn't break anything.
+    // You can set animation to false on line 88 and it doesn't appear.
     <Modal
       {...props}
       size='lg'

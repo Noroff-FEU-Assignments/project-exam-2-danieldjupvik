@@ -105,8 +105,6 @@ const Place = () => {
     history.goBack();
   }
 
-  console.log(rating);
-
   useEffect(() => {
     let subRating = 0;
     details.user_reviews?.map((review) => (subRating += review.rating));
@@ -129,11 +127,7 @@ const Place = () => {
     resolver: yupResolver(reviewSchema),
   });
 
-  console.log(reviews);
-
   const onSubmit = async (data) => {
-    console.log(data);
-
     if (rating <= 0) {
       setShowErrorMessage(true);
     } else {
@@ -152,7 +146,6 @@ const Place = () => {
         const response = await axios.put(`${baseUrl}${placesUrl}/${id}`, {
           user_reviews: newReviews,
         });
-        console.log(response);
         if (response.status === 200) {
           setReRender(!reRender);
           setRating(0);

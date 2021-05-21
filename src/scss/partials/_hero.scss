@@ -11,10 +11,6 @@
   background-repeat: no-repeat;
   box-shadow: $down-boxShadow;
   display: flex;
-  // align-items: center;
-  // justify-content: space-between;
-  // padding-top: 100px;
-  // padding-bottom: 240px;
   padding: 90px 0px;
   &__div {
     display: flex;
@@ -27,10 +23,8 @@
     font-size: 26px;
     color: $background-color;
     font-family: $heading;
-    // margin-bottom: 65px;
   }
 }
-
 .form-control {
   padding-left: 45px !important;
   border-radius: 10px !important;
@@ -51,7 +45,6 @@
 .active {
   background-color: $main-color !important;
 }
-
 .searchIcon {
   margin-left: 6px;
   position: absolute;

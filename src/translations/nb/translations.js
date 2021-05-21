@@ -71,4 +71,6 @@ export const TRANSLATIONS_NB = {
   pageNotFound: 'Side ikke funnet',
   orderError: 'Noe gikk galt...',
   confirmOrder: 'Bestillingen ble sendt',
+  createPlaceError: 'Noe gikk galt med å opprettet sted...',
+  confirmCreatePlace: 'Stedet ble opprettet',
 };

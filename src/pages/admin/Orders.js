@@ -33,7 +33,6 @@ const Orders = () => {
   }
 
   useEffect(() => {
-    // setLoader(true);
     const getOrders = async () => {
       try {
         const response = await https.get(`${baseUrl}/orders`);
@@ -53,7 +52,6 @@ const Orders = () => {
 
     try {
       const response = await https.delete(`${baseUrl}/orders/${id}`);
-      console.log(response);
       setUpdateOrder(!updateOrder);
     } catch (e) {
       console.log(e);
@@ -69,7 +67,6 @@ const Orders = () => {
   };
 
   const searchOrders = (e) => {
-    console.log(e.target.value);
     setSearchError(false);
     if (e.target.value.length >= 1) {
       const newArr = sortOrders.filter((places) => {

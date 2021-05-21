@@ -35,12 +35,10 @@
 .inputElem:focus {
   outline: none !important;
   border: 1px solid $main-color;
-  // box-shadow: 0 0 10px $main-color;
 }
 .label {
   font-family: $text;
   font-size: 15px;
-  // display: block;
 }
 
 .errorLabel {
@@ -76,7 +74,6 @@
 .modalBtnDiv {
   display: flex;
   flex-direction: row;
-  // margin: $global-spacing * 2 0;
   align-self: center;
 }
 

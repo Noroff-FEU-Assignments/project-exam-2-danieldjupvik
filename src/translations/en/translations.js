@@ -71,4 +71,6 @@ export const TRANSLATIONS_EN = {
   pageNotFound: 'Page not found',
   orderError: 'Something went wrong...',
   confirmOrder: 'Order successfully sent',
+  createPlaceError: 'Something went wrong when creating place...',
+  confirmCreatePlace: 'Place successfully created',
 };

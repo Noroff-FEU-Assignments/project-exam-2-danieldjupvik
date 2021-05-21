@@ -28,7 +28,6 @@ const Login = () => {
         password: data.password,
       });
       setAuth(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
       setLoginError(error.toString());

@@ -31,7 +31,6 @@ const Inbox = () => {
   }
 
   useEffect(() => {
-    // setLoader(true);
     const getInbox = async () => {
       try {
         const response = await https.get(`${baseUrl}/messages`);
@@ -48,7 +47,6 @@ const Inbox = () => {
   const deleteOrder = async (id) => {
     try {
       const response = await https.delete(`${baseUrl}/messages/${id}`);
-      console.log(response);
       setUpdatePlaces(!updatePlaces);
     } catch (e) {
       console.log(e);
@@ -61,8 +59,6 @@ const Inbox = () => {
       deleteOrder(id);
     }
   };
-
-  console.log(inbox);
 
   return (
     <div className='custom-container'>

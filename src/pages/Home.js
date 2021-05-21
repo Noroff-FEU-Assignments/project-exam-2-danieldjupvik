@@ -17,7 +17,6 @@ const Home = () => {
   const myRef = useRef(null);
 
   useEffect(() => {
-    // setLoader(true);
     const getPlaces = async () => {
       try {
         const response = await axios.get(`${baseUrl}${placesUrl}`);
@@ -47,8 +46,6 @@ const Home = () => {
           </div>
           <div>
             <Typeahead
-              // flip
-              // isLoading
               labelKey='name'
               size={'large'}
               highlightOnlyResult

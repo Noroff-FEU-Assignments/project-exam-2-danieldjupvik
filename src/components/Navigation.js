@@ -44,10 +44,8 @@ const Navigation = () => {
 
   const handleClick = (e) => {
     if (node.current?.contains(e.target)) {
-      // inside click
       return;
     }
-    // outside click
     setShowMenu(false);
   };
 

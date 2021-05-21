@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 const Orders = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('admin')}`;
   const history = useHistory();
   const [orders, setOrders] = useState([]);
   const [sortOrders, setSortOrders] = useState([]);

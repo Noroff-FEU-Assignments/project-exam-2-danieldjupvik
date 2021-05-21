@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('contact')}`;
   const [submitting, setSubmitting] = useState(false);
   const [contactError, setContactError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);

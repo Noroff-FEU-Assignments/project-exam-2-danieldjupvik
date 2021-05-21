@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const Dashboard = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('admin')}`;
   const [auth] = useContext(AuthContext);
 
   const history = useHistory();

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const Places = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('places')}`;
   const [places, setPlaces] = useState([]);
   const [placesDup, setPlacesDup] = useState();
   const [showLoader, setShowLoader] = useState(true);

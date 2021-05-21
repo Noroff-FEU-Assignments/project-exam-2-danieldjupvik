@@ -14,6 +14,7 @@ import { capitalize } from '../../utils/library';
 
 const NewPlace = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('admin')}`;
   const history = useHistory();
   const [config, setConfig] = useState([]);
   const https = useAxios();

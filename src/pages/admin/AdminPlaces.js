@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 const AdminPlaces = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('admin')}`;
   const history = useHistory();
   const [places, setPlaces] = useState([]);
   const [sortPlaces, setSortPlaces] = useState([]);

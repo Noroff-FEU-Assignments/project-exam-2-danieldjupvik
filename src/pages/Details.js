@@ -72,6 +72,7 @@ function reducer(state, [type, payload]) {
 
 const Place = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('places')}`;
   const [details, setDetails] = useState([]);
   const [vote_average, setVote_average] = useState();
   const [textToCopy, setTextToCopy] = useState();

@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 const Inbox = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('admin')}`;
   const history = useHistory();
   const [inbox, setInbox] = useState([]);
   const https = useAxios();

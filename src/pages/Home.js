@@ -10,6 +10,7 @@ import LoaderComp from '../components/LoaderComp';
 import { useTranslation } from 'react-i18next';
 
 const Home = () => {
+  document.title = 'Holidaze';
   const { t } = useTranslation();
   const [places, setPlaces] = useState([]);
   const [selected, setSelected] = useState([]);

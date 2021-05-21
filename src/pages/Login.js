@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const { t } = useTranslation();
+  document.title = `Holidaze | ${t('login')}`;
   const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(null);
   const [auth, setAuth] = useContext(AuthContext);

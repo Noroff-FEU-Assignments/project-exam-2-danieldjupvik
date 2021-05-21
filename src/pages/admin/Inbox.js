@@ -94,7 +94,10 @@ const Inbox = () => {
                         {t('from')}: <b>{inboxItem.name}</b>
                       </span>
                       <span className='inbox-name'>
-                        Email: <b>{inboxItem.email}</b>
+                        Email:{' '}
+                        <a href={`mailto:${inboxItem.email}`}>
+                          <b>{inboxItem.email}</b>
+                        </a>
                       </span>
                       <span className='inbox-created'>
                         {t('sent')}: {formatDate(inboxItem.created_at)}

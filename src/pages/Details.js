@@ -319,7 +319,7 @@ const Place = () => {
                 <h3 className='subheading'>{t('leaveReview')}</h3>
                 <form
                   onSubmit={handleSubmit(onSubmit)}
-                  style={{ display: 'flex', flexDirection: 'column' }}
+                  className='leaveReviewFrom'
                 >
                   <fieldset>
                     <div className='groupForm ratingGroupFrom'>

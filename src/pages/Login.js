@@ -47,22 +47,8 @@ const Login = () => {
     <div className='custom-container'>
       <h1 className='heading'>{t('login')}</h1>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ maxWidth: '350px', margin: '0 auto', marginTop: '30px' }}
-      >
-        {loginError && (
-          <p
-            style={{
-              width: 'fit-content',
-              margin: '0 auto',
-              borderBottom: '1px solid red',
-              paddingBottom: '10px',
-            }}
-          >
-            {t('wrongPassword')}
-          </p>
-        )}
+      <form onSubmit={handleSubmit(onSubmit)} className='loginForm'>
+        {loginError && <p className='error'>{t('wrongPassword')}</p>}
         <fieldset disabled={submitting} className='fieldset'>
           <div className='groupForm'>
             <label htmlFor='identifier' className='label'>

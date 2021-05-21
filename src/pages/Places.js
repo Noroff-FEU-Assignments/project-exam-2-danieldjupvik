@@ -46,7 +46,6 @@ const Places = () => {
   const handleChange = (selectedOption) => {
     setSelected(selectedOption);
     filterPlaces(selectedOption.value);
-    console.log(`Option selected:`, selectedOption.value);
   };
 
   return (

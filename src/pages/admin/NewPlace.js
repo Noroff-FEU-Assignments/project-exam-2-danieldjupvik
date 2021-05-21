@@ -90,30 +90,10 @@ const NewPlace = () => {
       <h1 className='heading'>{t('createNewPlace')}</h1>
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className='adminNewPlacesForm'>
-          {createError && (
-            <p
-              style={{
-                width: 'fit-content',
-                margin: '0 auto',
-                borderBottom: '1px solid red',
-                paddingBottom: '10px',
-              }}
-            >
-              {t('createPlaceError')}
-            </p>
-          )}
+          {createError && <p className='error'>{t('createPlaceError')}</p>}
 
           {createPlaceConfirmed ? (
-            <p
-              style={{
-                width: 'fit-content',
-                margin: '0 auto',
-                borderBottom: '1px solid green',
-                paddingBottom: '10px',
-              }}
-            >
-              {t('confirmCreatePlace')}
-            </p>
+            <p className='success'>{t('confirmCreatePlace')}</p>
           ) : null}
           <fieldset disabled={submitting} className='fieldset'>
             <div className='formSectionDiv'>

@@ -73,4 +73,6 @@ export const TRANSLATIONS_NB = {
   confirmOrder: 'Bestillingen ble sendt',
   createPlaceError: 'Noe gikk galt med å opprettet sted...',
   confirmCreatePlace: 'Stedet ble opprettet',
+  sendingError: 'Noe gikk galt under sending...',
+  messageSent: 'Meldingen ble sendt',
 };

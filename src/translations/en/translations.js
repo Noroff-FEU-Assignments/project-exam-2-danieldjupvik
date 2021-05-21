@@ -73,4 +73,6 @@ export const TRANSLATIONS_EN = {
   confirmOrder: 'Order successfully sent',
   createPlaceError: 'Something went wrong when creating place...',
   confirmCreatePlace: 'Place successfully created',
+  sendingError: 'Something went wrong when sending...',
+  messageSent: 'Message successfully sent',
 };

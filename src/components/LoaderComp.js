@@ -7,7 +7,6 @@ const LoaderComp = () => {
         display: 'flex',
         justifyContent: 'center',
         height: '50vh',
-
         alignItems: 'center',
       }}
     >

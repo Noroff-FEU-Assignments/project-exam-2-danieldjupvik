@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next';
 const Contact = () => {
   const { t } = useTranslation();
   const [submitting, setSubmitting] = useState(false);
-  const [contactError, setContactError] = useState(null);
+  const [contactError, setContactError] = useState(false);
+  const [messageSent, setMessageSent] = useState(false);
 
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(contactSchema),
@@ -20,6 +21,12 @@ const Contact = () => {
 
     try {
       const response = await axios.post(`${baseUrl}/messages`, data);
+      if (response.status) {
+        setMessageSent(true);
+        setTimeout(() => {
+          setMessageSent(false);
+        }, 3500);
+      }
     } catch (error) {
       console.log(error);
       setContactError(error.toString());
@@ -32,22 +39,9 @@ const Contact = () => {
   return (
     <div className='custom-container'>
       <h1 className='heading'>{t('contact')}</h1>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ maxWidth: '350px', margin: '0 auto', marginTop: '30px' }}
-      >
-        {contactError && (
-          <p
-            style={{
-              width: 'fit-content',
-              margin: '0 auto',
-              borderBottom: '1px solid red',
-              paddingBottom: '10px',
-            }}
-          >
-            Something went wrong when sending..
-          </p>
-        )}
+      <form onSubmit={handleSubmit(onSubmit)} className='contactForm'>
+        {contactError && <p className='error'>{t('sendingError')}</p>}
+        {messageSent ? <p className='success'>{t('messageSent')}</p> : null}
         <fieldset disabled={submitting} className='fieldset'>
           <div className='groupForm'>
             <label htmlFor='name' className='label'>

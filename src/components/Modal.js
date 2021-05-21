@@ -94,32 +94,12 @@ const OrderModal = (props) => {
       <Modal.Body>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          style={{ maxWidth: '320px', margin: '0 auto', paddingBottom: '20px' }}
+          className='modalForm'
           id='order-form'
         >
-          {orderError && (
-            <p
-              style={{
-                width: 'fit-content',
-                margin: '0 auto',
-                borderBottom: '1px solid red',
-                paddingBottom: '10px',
-              }}
-            >
-              {t('orderError')}
-            </p>
-          )}
+          {orderError && <p className='error'>{t('orderError')}</p>}
           {orderConfirmed ? (
-            <p
-              style={{
-                width: 'fit-content',
-                margin: '0 auto',
-                borderBottom: '1px solid green',
-                paddingBottom: '10px',
-              }}
-            >
-              {t('confirmOrder')}
-            </p>
+            <p className='success'>{t('confirmOrder')}</p>
           ) : null}
           <fieldset disabled={submitting} className='fieldset'>
             <div className='groupForm'>

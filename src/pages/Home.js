@@ -87,12 +87,7 @@ const Home = () => {
       </div>
       <div className='custom-container'>
         <div className='most-popular' ref={myRef}>
-          <h2
-            className='heading'
-            style={{ paddingTop: '48px', marginTop: '0' }}
-          >
-            {t('mostPopularText')}
-          </h2>
+          <h2 className='heading'>{t('mostPopularText')}</h2>
           {showLoader ? (
             <LoaderComp />
           ) : (

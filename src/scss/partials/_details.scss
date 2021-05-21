@@ -80,6 +80,11 @@
   display: block !important;
 }
 
+.leaveReviewFrom {
+  display: flex;
+  flex-direction: column;
+}
+
 .review-div {
   margin: 60px 0;
 }
